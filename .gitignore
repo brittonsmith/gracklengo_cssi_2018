@@ -1,0 +1,11 @@
+# use glob syntax.
+syntax: glob
+
+*~
+*.aux
+*.log
+*.out
+proposal.pdf
+*.bbl
+*.blg
+*-converted-to.pdf
