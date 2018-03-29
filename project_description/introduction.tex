@@ -1,0 +1,83 @@
+\section{The Many Challenges of Chemistry Solving}
+
+The formation and evolution of astrophysical structures, such as
+galaxies and molecular clouds, are governed
+by a combination of non-linear phenomena, most notably gravitation,
+hydrodynamics, and the atomic-scale physics that determine the
+efficiency with which a plasma expels energy via radiative and
+chemical processes.  Within simulation codes, gravity and
+hydrodynamics solvers are relatively low-maintenance components, in
+that they very rarely require updates due to advances in our
+understanding of their processes.  Scaling is the only barrier to
+increased sophistication.
+In contrast, solvers for chemical and radiative processes are
+extremely high-maintenance components, as the field of study they
+represent evolves rapidly and is multifaceted, with advances coming
+from theoretical calculations \citep[e.g.,][]{2007MNRAS.377..705F,
+  2007MNRAS.382..133W, 2008MNRAS.388.1627G, 2008ApJ...689.1105L,
+  2012JChPh.137o4303L, 2014ApJ...790...10S, 2015MNRAS.453..810L,
+  2016MNRAS.457.3732C, 2017MNRAS.466.2175C} and laboratory experiments
+\citep[e.g.,][]{2010Sci...329...69K, 2010PhRvA..82d2708B,
+  2011PhRvA..84e2709M, 2015JPhCS.635b2092R, 2015ApJS..219....6O,
+  2016ApJ...816...31D, 2016ApJ...832...31V}.  As a result, there
+has been considerable divergence in the methods employed for solving chemistry
+and cooling within the astronomical community.  This hinders scientific
+progress by making it difficult to directly compare results from
+different simulations and by mandating that considerable effort
+within each research group be devoted keeping methods up to date.  The
+\grackle{} chemistry and cooling library was developed with the
+explicit purpose of addressing these problems, and its growing popularity
+is a testament to its value to the community.
+
+Gas chemistry presents a unique set of challenges in terms of
+both computation and software development.  First, the network of
+reactions rapidly grows in complexity with the number of elements and
+species of those elements (i.e., the various ionization states and
+molecular forms) considered.  For example, the simplest case of a
+primordial gas consisting of hydrogen, deuterium, and helium minimally
+requires between 11 and 15 species and roughly 20 to 30 reactions
+\citep{1997NewA....2..181A, 1998A&A...335..403G}.
+Adding just carbon and oxygen increases the minimal network to 
+roughly 15-30 species and more than 50 reactions
+and potentially up to almost 500, depending on the desired level of
+accuracy \citep{2005ApJ...626..627O, 2012MNRAS.421..116G}.  Increases in
+computational power will continue to be easily consumed by adopting
+even gradually more sophisticated chemical networks and optimization
+will remain critical.  An even greater challenge is that the
+knowledge base
+informing these solvers is continually evolving.  The rate
+coefficients for many important reactions are still highly uncertain
+\citep{2008MNRAS.388.1627G, 2011ApJ...726...55T} with accepted values
+changing with new results from experimentation
+\citep{2010Sci...329...69K, 2015ApJS..219....6O, 2016ApJ...816...31D}.
+Additionally, new models are frequently created to account for
+phenomena that are difficult to resolve or simulate directly, such as
+UV background models that mimic reionization
+\citep[e.g.,][]{1996ApJ...461...20H, 2001cghr.confE..64H,
+2012ApJ...746..125H, 2009ApJ...703.1416F}, atomic
+\citep{2013MNRAS.430.2427R} and molecular \citep{1996ApJ...468..269D,
+2012MNRAS.425L..51W} self-shielding from photo-ionizing/dissociating
+radiation, and heavy element cooling tables for metal-enrichment from
+multiple sources \citep[e.g.,][]{2009MNRAS.393...99W,
+2013MNRAS.433.3005D}.
+
+Thus, a chemistry and cooling solver
+represents, at best, a snapshot of an ever-evolving body of
+knowledge.  The functionality provided by chemistry and cooling solvers is
+absolutely vital to simulations and models of a broad range of
+astrophysical problems: galaxy formation \citep{2016ApJ...830L..13M,
+2016MNRAS.462.3265D, 2017MNRAS.465.2540P, 2017MNRAS.466..105A,
+2017MNRAS.tmp..110D}; disk galaxies \citep{2015MNRAS.449.2588P,
+2015ApJ...814..131G}; dwarf galaxies \citep{2017arXiv170108779H}, 
+star formation \citep{2016Natur.535..523F, 2017ApJ...835..137W};
+black hole formation \citep{2016MNRAS.459.3217L, 2016MNRAS.459.4209A,
+2016MNRAS.459.3377R, 2016MNRAS.461..111R}; supernovae remnants
+\citep{2012ApJ...748...12S, 2016arXiv161008528B, 2017MNRAS.465.2471G};
+the interstellar medium \citep{2015ApJ...814....4L,
+2016arXiv161201786K}; the intergalactic medium
+\citep{2011ApJ...731....6S, 2011MNRAS.413..190T, 2012MNRAS.420..829O};
+and reionization \citep{2014ApJ...789L..32K, 2015ApJ...811....3S}.
+The tradition throughout the astrophysical simulation community has
+been to develop in-house solvers, geared to the specific design of
+each code and baked directly into the source, making abstraction and
+direct comparison between codes extremely difficult.
