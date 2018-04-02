@@ -2,7 +2,42 @@
 
 \mjt{Desrcibe Dengo here.}
 
-What is Dengo?
+The rate transformation of one species to another due to two-body chemical kinetic
+reactions can be written down in this form:
+
+$$
+\frac{\partial n_i }{\partial t} = \sum_{j}\sum_{l} k_{jl}n_{j}n_{l} + \sum_{j}I_{j}n_{j}
+$$
+
+Here, we use $n_{i}$ to denote species $i$, ${k_jl}$ to denote the kinetic rate
+coefficient for the reaction between species $j$ and $l$ that produces species
+$i$, and $I_{j}$ is the radiative process rate from $j$ to $i$.  Primordial
+chemistry also often includes three-body reactions, such as those that
+form molecular hydrogen while utilizing a third body as a catalyst.  It is
+notable that this defines the \textit{entire} system of two-body reactions;
+where we see reductions in species, the reaction rate is negative and includes
+species ${i}$.
+
+\mjt{Gotta think about perceived weaknesses}
+
+Generating a reaction network from this involves constructing a change vector,
+$\frac{\partial n_i}{\partial t}$ for all pairwise combinations and sets of
+reactions.  From the perspective of implementation, this requires considerable
+bookkeeping for each additional species and each additional reaction.  For
+example, adding a single reaction rate that operates on two species requires
+updating the species change vectors for each of those two species; when
+optimizing for computational architectures -- such as SIMD instructions, memory
+management for interpolation tables, and reducing cache misses -- this adds
+not-inconsiderable overhead for the developer.  Furthermore, operations that
+change the mechanism by which the solver operates, such as changing from
+semi-implicit updates to a fully-implicit scheme, require full reorganization
+of the solver code.
+
+Dengo is a platform for generating chemical kinetic rate equation solvers that
+remain independent of the mechanism for executing that solution.  Building on
+sympy, a computer algebra system available in Python, it enables individuals
+
+\mjt{Cite: sympy}
 
 Figures of merit?
 
