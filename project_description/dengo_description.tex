@@ -34,8 +34,17 @@ semi-implicit updates to a fully-implicit scheme, require full reorganization
 of the solver code.
 
 Dengo is a platform for generating chemical kinetic rate equation solvers that
-remain independent of the mechanism for executing that solution.  Building on
-sympy, a computer algebra system available in Python, it enables individuals
+remain independent of the mechanism for executing that solution.
+
+\mjt{Add diagram of how Dengo works -- maybe some boxes}
+
+Dengo includes full reaction networks for primordial gas, ionization of
+interstellar, and formation of molecules using \mjt{UMIST}.  Constructing a
+solver using Dengo is done by choosing a collection of species to evolve,
+choosing the relevant chemical kinetic and radiative cooling equations that
+interlink them, and then identifying the solver that will update the coupled
+differential equations at each timestep.
+
 
 \mjt{Cite: sympy}
 
