@@ -215,8 +215,8 @@ cooling, heating,
 and UV background rate data from input files.  HDF5 was chosen because
 \grackle{}'s input files contain many data tables and the hierarchical
 format makes them easily discoverable without prior knowledge of the
-layout, allowing them to be easily reused by other codes.  The Python
-interface makes use of a number of widely used Python packages, including
+layout, allowing them to be reused for other purposes.  The Python
+interface is built upon a number of widely used Python packages, including
 \texttt{NumPy}, \texttt{Cython}, and
 \yt{}\footnote{\url{http://www.numpy.org/}, \url{http://cython.org/},
   and \url{http://yt-project.org/}, respectively} \citep[][an SI2-funded
@@ -415,8 +415,9 @@ functions is written in \texttt{Cython}.
 \subsection{Community and Usage Metrics}
 
 The first stable version of the \grackle{} library was released in
-January 2014.  Since that time, the \grackle{} API has been
-implemented in 14 simulation codes and has been used in 23 papers
+January 2014, with the most recent release (\grackle{} 3.1) on April
+3, 2018.  Since the initial release, the \grackle{} API has been
+implemented in 14 simulation codes and has been used in 48 papers
 published in the Astrophysical Journal, Monthly Notices of the Royal
 Astronomical Society, and Nature.  The topics of these publications
 include galaxy, star, and direct collapse black hole formation; dwarf
@@ -424,8 +425,8 @@ and disk galaxies; the high redshift interstellar medium; the
 Lyman-alpha forest; history of the Milky Way; reionization; supernova
 remnants; metal mixing; and turbulence.  This usage has grown steadily
 from year to year, with 1 publication using \grackle{} in 2014, 5 in
-2015, 11 in 2016, and 6 within the first two months of 2017.  The
-\grackle{} mailing list currently has 68 subscribers, increasing by
+2015, 11 in 2016, 22 in 2017, and 9 as of April, 2018.  The
+\grackle{} mailing list currently has 76 subscribers, increasing by
 roughly 15-20 per year.
 
 Much of \grackle{}'s primordial chemistry solver was first developed
@@ -435,22 +436,22 @@ the simulation code, \texttt{Enzo} \citep[][licensed under the
   3-clause, revised BSD license]{2014ApJS..211...19B} a few
 years later.  As a component of \texttt{Enzo}, the chemistry and
 cooling solver was developed through contributions made by many in the
-\texttt{Enzo} community, including PI Britton Smith and collaborators
-Greg Bryan, Matthew Turk, and Simon Glover.  In response to a call for
+\texttt{Enzo} community, including PIs Britton Smith and Matthew Turk
+and collaborators Greg Bryan and Simon Glover.  In response to a call for
 a ``common physics package'' to enable a large, multi-simulation
 comparison project \citep[AGORA,][]{2014ApJS..210...14K,
-  2016ApJ...833..202K}, PI Britton Smith extracted the chemistry and
+  2016ApJ...833..202K}, PI Smith extracted the chemistry and
 cooling machinery from \texttt{Enzo} and converted it into a
 stand-alone, linkable library that included a number of improvements
 and additional features.  The first commit made to the \grackle{}
 project was in October 2012.  Since then, the project has progressed
 under the same philosophy of feature-driven, community development as
 it had as a component of \texttt{Enzo}.  In that time, the code has
-received commits from 14 different contributors.
+received commits from 16 different contributors.
 
-This SSE will establish \grackle{} as a vital software element for the
-computational astrophysics community.  It will allow the code to adapt
-to the latest technologies that will enable the next generation of
-simulations.  It will expand the capabilities of \grackle{} to reach a
-larger audience and provide a venue for collaboration and
-dissemination of new research.
+%% This SSE will establish \grackle{} as a vital software element for the
+%% computational astrophysics community.  It will allow the code to adapt
+%% to the latest technologies that will enable the next generation of
+%% simulations.  It will expand the capabilities of \grackle{} to reach a
+%% larger audience and provide a venue for collaboration and
+%% dissemination of new research.
