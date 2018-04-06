@@ -1,5 +1,6 @@
 NAME=proposal
 LATEX=pdflatex #-interaction=nonstopmode
+SECTIONS=*.tex
 
 all:  $(NAME).pdf
 
@@ -11,11 +12,11 @@ dvi: $(NAME).tex $(SECTIONS)
 	$(LATEX) $(NAME) || true 
 	$(LATEX) $(NAME)
 
-$(NAME).pdf: $(NAME).tex # $(SECTIONS)
+$(NAME).pdf: $(NAME).tex $(SECTIONS)
 	$(LATEX) $(NAME) || true
 	bibtex $(NAME)
-	$(LATEX) $(NAME) || true 
-	bibtex $(NAME)
+#	$(LATEX) $(NAME) || true
+#	bibtex $(NAME)
 	$(LATEX) $(NAME) || true 
 	$(LATEX) $(NAME) || true 
 #	dvipdf $(NAME).dvi $(NAME).pdf
