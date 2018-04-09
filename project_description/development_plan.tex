@@ -1,37 +1,28 @@
 \section{Development Plan}
 
 The success of the \grackle{} project as a community resource will
-ultimately depend on how broadly applicable its functionality is and
-its ability to attract new contributions.  The main factors
-that will determine whether researchers will choose to make \grackle{}
-a destination for new features are 1) the ease with which the source
-code can be effectively modified, and 2) whether the code will run
-efficiently both now and into, at least, the near future.  Regarding
-this second point, efficient use of GPUs and many-core processors are
-among the leading concerns of computational astrophysicists.  Tackling
-these factors will solidify continued engagement in areas where the
-code is now used.  However, breaking into untapped areas of research
-will require some supported development in order to reach a minimum
-level of usability.  In particular, \grackle{}'s current chemistry
-network is not suitable for simulations of present-day star formation,
-where additional atomic and molecular species are required.  Expanding
-\grackle{}'s functionality to meet the needs of this community is an
-explicit goal of this SSE.
-
-The work proposed in this SSE is designed to encourage community
-involvement through a series of incremental updates to the underlying
-infrastructure followed by the addition of key features that will
-enable adoption by additional codes and applications.  Figure
-\ref{fig:gantt} displays the timeline for the design and
-implementation of each of the milestones comprising this SSE.
-\grackle{} is distributed under the 3-clause, revised BSD license and
-has no proprietary dependencies.
+depend on its ability to adapt to the evolving scientific and
+technical needs of the users. Key to this are 1) adding features
+desired by users, 2) encouraging external contribution by ensuring
+that the code is easily extendable, and 3) improving performance to
+keep up with advances in the simulation codes that use it.
+The proposed work plan, detailed below, will address each of these key
+factors. Each year of the work plan has milestones in the form of
+deliverables to the community which will enable specific scientific
+goals. The features and improvements that we will implement were all
+identified in a \grackle{} user survey carried out in Spring 2017 as
+being important to the community. In addition, we identify scientific
+collaborators with stated intentions of making use of the new features
+developed. Figure \ref{fig:gantt} displays the timeline for the
+design, implementation, and delivery of each of the milestones in this
+CSSI proposal. \grackle{} and \dengo{} are both distributed under the
+3-clause, revised BSD license and have no proprietary dependencies.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{figures/gantt.pdf}
-\caption{Timeline of design and implementation for the three
-  development projects in this SSE.}
+\caption{Timeline of design, implementation, and delivery of the
+  proposed development.}
 \label{fig:gantt}
 \end{center}
 \vspace*{-2\baselineskip}
@@ -121,6 +112,8 @@ The result of phase 2 will be a streamlined, more flexible,
 refactored source code that will be substantially easier to develop
 and will be released as \grackle{} version 4.0.
 
+\textbf{Science Enabled:}
+
 \subsection{Year Two: Hardware Acceleration}
 
 In order for \grackle{} to continue to be a valuable software element
@@ -177,6 +170,8 @@ impacts of this effort, we will also host a
 workshop at UCSD at the end of year two to provide instruction and
 a venue for collaboration to researchers interested in contributing
 new features.
+
+\textbf{Science Enabled:}
 
 \subsection{Year Three: Feature Expansion}
 
@@ -366,6 +361,8 @@ to make the source code easier to develop and more inviting to new
 contribution; to enhance performance to scale with next-generation
 simulations; and to add features that extend the code to new
 communities.
+
+\textbf{Science Enabled:}
 
 \subsection{Advisory Board}
 
