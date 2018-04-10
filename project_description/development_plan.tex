@@ -16,7 +16,10 @@ collaborators with stated intentions of making use of the new features
 developed. Figure \ref{fig:gantt} displays the timeline for the
 design, implementation, and delivery of each of the milestones in this
 CSSI proposal. \grackle{} and \dengo{} are both distributed under the
-3-clause, revised BSD license and have no proprietary dependencies.
+3-clause, revised BSD license and have no proprietary
+dependencies. The planning and commencement of this work will include
+direct communication with the \grackle{} user community via the
+project's mailing list.
 
 \begin{figure}
 \begin{center}
@@ -28,17 +31,19 @@ CSSI proposal. \grackle{} and \dengo{} are both distributed under the
 \vspace*{-2\baselineskip}
 \end{figure}
 
-\subsection{Year One: Infrastructure Refactor}
+\subsection{Year One: \grackle{}: source code refactor and hardware
+  acceleration; \dengo{}: explicit solver generation}
 
-The primary goal of the year one development project is to make the
-source code substantially more inviting to new contributors and to
-build the groundwork for the later projects.  There will be two phases
-to this project: 1) expanding the test suite, and 2) porting all
-Fortran routines to C.  The planning and commencement of this work
-will include direct communication with the \grackle{} user community
-via the project's mailing list.  Completion of these phases will be
-marked by stable releases.
+The three objectives for year one are 1) to make \grackle{} subsantially
+easier to modify and, hence, more inviting to new contributions, 2)
+add generalized support for hardware accelerators to \grackle{}, and
+3) to add support for generating explicit solvers to \dengo{}.  The
+first two goals will result in a significantly improved \grackle{}
+library ready at the end of year one. All three objectives will
+contribute to the foundation of the work to be done in years two and
+three.
 
+\noindent \textbf{Grackle Source Code Refactor}
 The design and optimization of the core chemistry and cooling solver
 routines in \grackle{} are central factors in making the library fast
 enough to be used in extremely large simulations.  However, these
@@ -68,21 +73,13 @@ programming language, such as the \texttt{restrict} keyword introduced
 in the C99 standard \citep{c99}, have made it possible for C code to
 be competitive with Fortran.
 
-Phase 1 of the infrastructure refactor will be an expansion of the
+The source code refactor will begin with an expansion of the
 test suite to ensure that all functionality and parameter
 combinations are covered by answer and unit tests.  The current
 test suite adequately covers the most common running modes of the
 library, but is insufficient for a full overhaul such as what will
-follow.  The completion of phase 1 will be marked by
-the release a new stable version of the library.  At the time of
-writing, the latest stable release of \grackle{} is version 3.0 with a
-3.1 release likely to occur in the next month to cover new features
-and bugfixes.  As phase 1 would constitute no change in the library
-itself, the resulting release will be a 3.x version (i.e., 3.2 if the
-prior version is 3.1).
-
-With a more robust test suite in place, the Fortran code (roughly 7200
-lines) can be safely ported to C (phase 2).  The resulting code will
+follow.  With a more robust test suite in place, the Fortran code (roughly 7200
+lines) can be safely ported to C.  The resulting code will
 be vastly streamlined as it will no longer be necessary to pass all
 required data via function argument.  Instead, the central routines
 will be able to access the C \texttt{structs} containing the run-time
@@ -91,34 +88,37 @@ calling C routines from Python will allow for the addition of
 finer-grained unit tests operating within the existing test suite,
 which uses the \texttt{pytest} Python package.  This will also allow
 for more of the core functionality to be exposed directly to the user,
-as has often been requested.
-At present, on startup \grackle{} computes lookup tables from the
-functional forms of the reaction rate coefficients.  To enable easier
-selection, and greater provenance tracking, we will enable the
-\texttt{pygrackle} wrappers to generate pre-computed tables from
-functional forms defined in yaml files.  This will provide a method of
-experimenting with different rates, such as from different
-experimental results or theoretical calculations, while avoiding the
-complexity of code generation or full recompilation of the
-application.  Finally, with this refactor, the
-increased modularity will allow for the implementation of different
-solver methodologies.  One potential application of this could be the
-fully-implicit solver LSODE \citep{LSODE}.  While LSODE is much slower in many
-cases, it allows the individual to specify a more strict convergence
-criteria and error threshold than the existing method in \grackle{}.
-This may provide utility for situations where \grackle{} struggles
-with time-step convergence, such as at extremely high densities.
-The result of phase 2 will be a streamlined, more flexible,
-refactored source code that will be substantially easier to develop
-and will be released as \grackle{} version 4.0.
+as has often been requested.  The culmination of this phase of the
+work plan will be marked by a major public release, \grackle{} version
+4.0.
 
-\textbf{Science Enabled:}
+%% At present, on startup \grackle{} computes lookup tables from the
+%% functional forms of the reaction rate coefficients.  To enable easier
+%% selection, and greater provenance tracking, we will enable the
+%% \texttt{pygrackle} wrappers to generate pre-computed tables from
+%% functional forms defined in yaml files.  This will provide a method of
+%% experimenting with different rates, such as from different
+%% experimental results or theoretical calculations, while avoiding the
+%% complexity of code generation or full recompilation of the
+%% application.  Finally, with this refactor, the
+%% increased modularity will allow for the implementation of different
+%% solver methodologies.  One potential application of this could be the
+%% fully-implicit solver LSODE \citep{LSODE}.  While LSODE is much slower in many
+%% cases, it allows the individual to specify a more strict convergence
+%% criteria and error threshold than the existing method in \grackle{}.
+%% This may provide utility for situations where \grackle{} struggles
+%% with time-step convergence, such as at extremely high densities.
+%% The result of phase 2 will be a streamlined, more flexible,
+%% refactored source code that will be substantially easier to develop
+%% and will be released as \grackle{} version 4.0.
 
-\subsection{Year Two: Hardware Acceleration}
-
-In order for \grackle{} to continue to be a valuable software element
-for the astrophysical community, use of the library must not become
-the limiting factor for scaling up simulations.  Because the
+\noindent \textbf{Grackle Hardware Acceleration}
+As astrophysical simulation codes continue to improve their
+scalability and performance, it is important that \grackle{} not
+become a limiting factor.  \grackle{}-related calculations are
+generally known to constitute 20-25\% of a simulation's computational
+cost.  Thus, the potential exists for \grackle{} to serve as a great
+help or hindrance to continued performance gains.  Because the
 calculations performed by \grackle{} are all local to each fluid
 element (i.e., solving a given cell does not require information about
 neighboring cells), it was straightforward to achieve modest speedup
@@ -126,22 +126,20 @@ with OpenMP simply by threading the outer loops for which the core
 functions are called.  However, significantly greater speedups can be
 achieved by parallelizing the operations within the solvers and taking
 advantage of hardware acceleration options currently available on the
-latest high performance computing (HPC) systems, such as graphics
-processing units (GPUs) and many integrated core architectures (MICs).
-For example, \citet{Haidar2016PerformanceAA} report speedups of a
-factor of 20-40
-for an explicit chemistry network ported to a GPU and even greater
-speedups when the GPU is used to compute multiple networks
-simultaneously.
+latest high performance computing (HPC) systems, mainly graphics
+processing units (GPUs). For example, \citet{Haidar2016PerformanceAA}
+report speedups of a factor of 20-40 for an explicit chemistry network
+ported to a GPU and even greater speedups when the GPU is used to
+compute multiple networks simultaneously.
 
 National computing facilities used for astrophysical simulations, such
-as those in the Extreme Science and Engineering Discovery Environment
-(XSEDE) and NCSA Blue Waters, employ acceleration with both GPUs and
-MIC architectures.  Implementing separate parallelization strategies,
-while potentially resulting in faster code, will likely make the
-source code more difficult to work with for new developers.  Instead,
-we will develop a new parallelism strategy using the OpenACC standard,
-which works with many different architectures.  OpenACC is supported
+as those in the NSF-funded Extreme Science and Engineering Discovery
+Environment (XSEDE) and NCSA Blue Waters, employ a variety of
+architectures.  Implementing targeted parallelization strategies,
+while potentially resulting in faster code, will make the source code
+more complex. Instead, we will develop a new parallelism strategy
+using the OpenACC standard, which works with many different
+architectures.  OpenACC is supported 
 by PGI, Cray, and GNU compilers.  Similar to OpenMP, OpenACC provides
 compiler directives, or pragmas, that allow the programmer to
 designate portions of code, particularly loops, to be run on the
@@ -152,28 +150,50 @@ to \grackle{}'s core functions which make use of a number of temporary
 variables and data to perform many operations on a series of input
 arrays.
 
-Adding OpenACC support will happen in year two.  The strategy will be
-mapped out in year one during the infrastructure refactor.  We will
-make use of local computing resources at the PI's home institution
+Work on OpenACC support will commence immediately following the
+refactor of the \grackle{} source code, with the ease of adding
+OpenACC support motivating the redesign of the code.  We will
+make use of local computing resources at PI Smith's home institution
 (San Diego Supercomputer Center, SDSC) for development and testing.
 SDSC's Comet supercomputer has 36 NVIDIA dual K80 nodes and 36 NVIDIA
-4-way P100 nodes.  SDSC is also an Intel Center of Excellence, hosting
-a small Knights Landing (KNL) cluster which will be used for testing
-on MIC architectures.
-We will also work with system administrators at XSEDE facilities to
-provide modules of pre-built \grackle{} libraries to users.  When this
-project is completed, we will
-release version 5.0 of the \grackle{} library.  Included in this
-release will be documentation aimed at new developers with
-instructions for parallelizing new features.  To support the broader
-impacts of this effort, we will also host a
-workshop at UCSD at the end of year two to provide instruction and
-a venue for collaboration to researchers interested in contributing
-new features.
+4-way P100 nodes. We will also work with system administrators at
+XSEDE facilities to provide modules of pre-built \grackle{}
+libraries. This phase of the project will be released as \grackle{}
+version 4.1. Included in this release will be documentation aimed at
+new developers with instructions for parallelizing new features.  To
+support the broader impacts of this effort, we will also host a
+workshop to provide instruction and a venue for collaboration for
+researchers interested in contributing new features. This will be held
+at the Center for Computational Astrophysics (CCA) at the Flatiron
+Institute.  PI Smith will be responsible for this work.
+
+\noindent \textbf{Dengo explicit solver generation}
+\mjt{Help here, please!}
+
+- we want to do this because expansion to larger chemistry networks is
+fraught with peril and bugs
+
+- to be carried out by PI Turk's research group in collaboration with
+PI Smith.
+
+- tuning experiments with grackle will guide development
+
+\subsection{Year Two: \grackle{}: feature expansion; \dengo{}:
+  hardware acceleration and reaction rate database support}
 
 \textbf{Science Enabled:}
 
-\subsection{Year Three: Feature Expansion}
+- Devin's non-equilibrium stuff goes faster
+
+- new features from student project 1 (multi-element cooling or
+rad-transfer cooling tables)
+
+\subsection{Year Three: \grackle{}/\dengo{} hybrid solver and
+  \grackle{} feature expansion}
+
+\textbf{Science Enabled:}
+
+THIS TEXT IS OLD BUT MIGHT BE REUSABLE
 
 The goal of the year three development project is to expand the user
 base of \grackle{} to include the present-day star formation
@@ -361,8 +381,6 @@ to make the source code easier to develop and more inviting to new
 contribution; to enhance performance to scale with next-generation
 simulations; and to add features that extend the code to new
 communities.
-
-\textbf{Science Enabled:}
 
 \subsection{Advisory Board}
 
