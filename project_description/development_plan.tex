@@ -241,11 +241,11 @@ projects in which \grackle{}'s developers participate.  The main
 source code repository is hosted on
 BitBucket.org\footnote{\url{https://bitbucket.org/grackle/grackle}}
 and is publicly readable.  Development proceeds via a ``Pull Request''
-model that allows for incoming changes to be effectively peer-reviewed
-before  being accepted into the main branch.  The \grackle{} library
-uses semantic versioning and
+(PR) model that allows for incoming changes to be effectively
+peer-reviewed before  being accepted into the main branch.  The
+\grackle{} library uses semantic versioning and
 is released with numeric versions in an X.Y.Z format, e.g. ``version
-2.3.1''.  Changes to the \grackle{} API or a fundamental restructuring
+3.2.1''. Changes to the \grackle{} API or a fundamental restructuring
 of the source (such as the year one development project) constitute
 changes to the X number in a release.  A change in Y occurs when new,
 non-API-breaking features are added.  A change in Z marks a release
@@ -253,10 +253,10 @@ containing only bugfixes, but no new functionality.
 
 This development process is primarily modelled after that
 of the \yt{} community.  The \yt{} project has similar
-aims as a cross-platform library for simulations and PI Britton Smith
-and Collaborator Matthew Turk have played significant roles in growing
+aims as a cross-platform library for simulations and the PIs have
+played integral roles in growing 
 its community and crafting its governance model.  Similar to
-\yt{}, the \grackle{} project maintains Community Code of
+\yt{}, the \grackle{} project maintains a Community Code of
 Conduct and Developer Guide documents to promote a diverse and
 inviting community.
 
@@ -266,22 +266,22 @@ readable with write-access currently granted to a handful of the most
 experienced developers.  The Pull Request model is used even by those
 with write access to the main repo.  In this model, a contributor
 ``forks'' the main repository, commits changes to their fork, and then
-submits a Pull Request allowing other developers to review the
+submits a PR allowing other developers to review the
 line-by-line changes.  Reviewers leave comments or ``approve'' the
-Pull Request and it is eventually accepted or declined in a process
+PR and it is eventually accepted or declined in a process
 analogous to peer-review for publications.  At the present time, this
 usually proceeds with the lead developer (PI Britton Smith) serving as
-Pull Request manager by identifying appropriate reviewers (including
+PR manager by identifying appropriate reviewers (including
 himself) and soliciting comments.  As the community continues to grow,
 this role can become codified and rotated amongst multiple people.
-\grackle{} has received 54 Pull Requests since the first release.
+\grackle{} has received 76 PRs since the first release.
 
 \grackle{} contains a suite of unit and answer
 tests that can be run manually using the \texttt{pytest} package.  The
 test suite is also run automatically on the central repository and its
 forks using the Bitbucket Pipelines continuous integration service.
-When a new Pull Request is issued, the results of the test suite are
-shown on the Pull Request's web page with links to more detailed
+When a new PR is issued, the results of the test suite are
+shown on the PR's web page with links to more detailed
 output which can be examined when failures occur.  The test suite
 includes a variety of different tests to guard against regression.
 Several ``unit tests'' exist to ensure that fundamental
@@ -303,7 +303,14 @@ readthedocs.org\footnote{\url{https://grackle.readthedocs.io}},
 and is automatically rebuilt when changes are added to the main
 repository.
 
+Development of \dengo{} will be conducted in an identical manner as
+\grackle{}.  Like \grackle{}, \dengo{} is also developed using
+Mercurial and its main repo is hosted on
+BitBucket.org\footnote{\url{https://bitbucket.org/dengo-project/dengo}}.
+
 \subsection{Provenance and Reproducibility}
+
+\mjt{Do we want to add anything here about reaction rate provenance?}
 
 Reproducibility is integral to the scientific process, but can be
 difficult to achieve when a calculation relies on a complex software
@@ -335,29 +342,35 @@ packages available to the astrophysical simulation community.  This
 fact was the primary motivator for \grackle{}'s creation.  The main
 alternative to \grackle{} is the 
 \texttt{KROME}\footnote{\url{http://kromepackage.org/}} package
-\citep{2014MNRAS.439.2386G}.  \texttt{KROME} exposes a number of
-distinct chemical networks through a Fortran-based API and can also
-generate solver code for a custom network defined by the user.
-\texttt{KROME} is designed exclusively as a chemistry network solver
-and so does not employ cost-saving simplifications, like tabulated
-metal cooling and self-shielding models, designed to work in regimes
-where direct network solving is computationally prohibitive.
-\texttt{KROME}'s solvers are designed to operate on a single fluid
-element and do not offer additional parallelization; \texttt{KROME} is
-not specifically targeted toward large simulations.
+\citep{2014MNRAS.439.2386G}.  \texttt{KROME} is functionally very
+similar to \dengo{} in that it can generate implicit solver code for a
+user-defined network.  \texttt{KROME} also exposes a number of
+distinct chemical networks through a Fortran-based API.  However, this
+API varies for each network, so a user must add support for them
+individually.  Additionally, \texttt{KROME} is designed exclusively as
+a chemistry network solver and so does not employ cost-saving
+simplifications, like tabulated metal cooling and self-shielding
+models, designed to work in regimes where direct network solving is
+computationally prohibitive.  This is an important point as these
+methods are widely used in the galaxy formation simulation community.
+Finally, \texttt{KROME}'s solvers are designed to operate on a single
+fluid element and do not offer additional parallelization;
+\texttt{KROME} is not specifically targeted toward large simulations
+or advancements in hardware acceleration.
 
 Several other codes exist for solving specific chemistry
 networks on single fluid elements, such as 
-\texttt{ALCHEMIC} \citep{2010A&A...522A..42S}, \texttt{ASTROCHEM}
-\citep{2013MNRAS.431..455K}, \texttt{ASTROCHEM} \citep[][unrelated to
-the first \texttt{ASTROCHEM}]{2013A&A...559A..53M}, \texttt{NAHOON}
-\citep{2012ApJS..199...21W}, and \texttt{XDELOAD}
+\texttt{ALCHEMIC} \citep{2010A&A...522A..42S}; \texttt{ASTROCHEM}
+\citep{2013MNRAS.431..455K}; \texttt{ASTROCHEM} \citep[][unrelated to
+the first \texttt{ASTROCHEM}]{2013A&A...559A..53M}; \texttt{NAHOON}
+\citep{2012ApJS..199...21W}; \texttt{RATE13} \citep[associated with
+  the UMIST database][]{2013A&A...550A..36M}; and \texttt{XDELOAD}
 \citep{2005Ap&SS.299....1N}.  The \texttt{ASTROCHEM} by
 \citet{2013A&A...559A..53M} is the only code hosted in a
-publicly-viewable repository.  \texttt{NAHOON} is downloadable as a
-static tar file.  \texttt{ALCHEMIC} and \texttt{XDELOAD} are available
-upon request.  \texttt{ASTROCHEM} by \citet{2013MNRAS.431..455K} is a
-private code.
+publicly-viewable repository.  \texttt{NAHOON} and \texttt{RATE13} are
+downloadable as tatic tar files.  \texttt{ALCHEMIC} and
+\texttt{XDELOAD} are available upon request.  \texttt{ASTROCHEM} by
+\citet{2013MNRAS.431..455K} is a private code.
 In addition to the above codes, a number of works have provided tables
 of cooling rates \citep{1993ApJS...88..253S, 2009MNRAS.393...99W,
 2013MNRAS.434.1043O} that require the surrounding machinery for
@@ -368,32 +381,36 @@ not their aim to provide a flexible API to large simulations, nor to
 act as a two-way resource that both serves and invites contribution
 from the larger community.
 
+\bds{We could also mention a few of the various reaction networks for
+  which no code is available or easy to obtain.  We could then say
+  that these could all be used with Dengo.}
+
 The \grackle{} project has focused on providing optimized, easily
 adoptable functionality that is independent of simulation code
 design.  Through its interoperability with other cross-platform
 astrophysical tools like \yt{}, it seeks to exist within the
-ecosystem of scientific software rather than alongside it.
-Its focus on usability, performance, and community
+ecosystem of scientific software rather than alongside it.  The
+\dengo{} code will adhere to this same philosophy.
+\grackle{'s} focus on usability, performance, and community
 involvement make it a vital software element to the field of
 computational astrophysics.  This focus is underscored by the goals
-of the work outlined in this SSE:
-to make the source code easier to develop and more inviting to new
-contribution; to enhance performance to scale with next-generation
-simulations; and to add features that extend the code to new
-communities.
+of the work outlined in this proposal:
+to make the code inviting to new contribution; to enhance performance
+to scale with next-generation simulations; and to add features desired
+by its current users as well as to make it useful to new communities.
 
 \subsection{Advisory Board}
 
 We have formed an advisory board to ensure that the milestones
-outlined in this SSE are accomplished satisfactorily and in a timely
-fashion.  PI Britton Smith will meet regularly (between 1 and 3 times
+outlined in this proposal are accomplished satisfactorily and in a timely
+fashion.  The PIs will meet regularly (between 1 and 3 times
 per year, via video-conference) with the full board to present updates
 on technical progress and progress in achieving the overall goals of
-the SSE in terms of growth in users and community involvement.  The
+the project in terms of growth in users and community involvement.  The
 advisory board members are experts in the fields of computational
 astrophysics and astrochemistry and have significant experience in the
 development (both technical and social) of community software projects
-and in parallelizing codes for GPUs and MIC architectures.
+and in parallelizing codes for GPUs.
 {\bf Prof. Greg Bryan} is the original author of the \texttt{Enzo}
 simulation code and provides experience with chemistry solving methods
 and design of large software projects.
@@ -417,9 +434,6 @@ systems.
 star formation and provides insight into the needs of that community.
 Prof. Offner will also advise on adding support for \grackle{} to the
 \texttt{ORION} simulation code \citep{2012ApJ...745..139L}.
-{\bf Prof. Matthew Turk} is the founder of the \yt{} project and
-a core developer of the \texttt{Enzo} simulation code, including
-components of the chemistry solver that went into \grackle{}.
 
 The advisory board provides a range of scientific and technical
 expertise as well as experience with community software development.
