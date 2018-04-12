@@ -160,12 +160,7 @@ SDSC's Comet supercomputer has 36 NVIDIA dual K80 nodes and 36 NVIDIA
 XSEDE facilities to provide modules of pre-built \grackle{}
 libraries. This phase of the project will be released as \grackle{}
 version 4.1. Included in this release will be documentation aimed at
-new developers with instructions for parallelizing new features.  To
-support the broader impacts of this effort, we will also host a
-workshop to provide instruction and a venue for collaboration for
-researchers interested in contributing new features. This will be held
-at the Center for Computational Astrophysics (CCA) at the Flatiron
-Institute.  PI Smith will be responsible for this work.
+new developers with instructions for parallelizing new features.
 
 \noindent \textbf{Dengo explicit solver generation}
 \mjt{Help here, please!}
@@ -178,8 +173,41 @@ PI Smith.
 
 - tuning experiments with grackle will guide development
 
-\subsection{Year Two: \grackle{}: feature expansion; \dengo{}:
-  hardware acceleration and reaction rate database support}
+\subsection{Year Two: \grackle{}: USCD student project 1; \dengo{}:
+  hardware acceleration and reaction rate provenance}
+
+\noindent \textbf{Grackle: UCSD student project 1: multi-element
+  metal cooling tables} The goal of refactoring the \grackle{} source
+code and adding hardware acceleration support is to make \grackle{} an
+attractive landing spot for external contribution of new chemistry and
+cooling-related models resulting from scientific research.  
+%% Examples of these include spatially constant models of the evolving UV
+%% background radiation from stars and black holes
+%% \citep[e.g.,][]{2009ApJ...703.1416F, 2012ApJ...746..125H};
+%% approximations for molecular and atomic self-shielding of external
+%% radiation \citep[e.g.,][]{2012MNRAS.425L..51W, 2013MNRAS.430.2427R};
+%% and tables of heavy element cooling rates
+%% \citep[e.g.][]{2008MNRAS.385.1443S, 2009MNRAS.393...99W}.
+These models are critical to galaxy formation and evolution
+simulations as they are simplifications of crucial processes that
+would be computationally prohibitive to calculate directly.  
+%% Too often, the 
+%% only publicly available forms of these models are the publications
+%% describing them, in which important implementation details might be
+%% omitted.
+In a survey of \grackle{} users carried out in Spring 2017, a number
+of such models were identified as features wanted by the community.
+Implementing one of these features is an excellent undergraduate
+student project as it has a well-defined endpoint, requires learning
+from the scientific literature, provides experience with developing
+software for HPC, gives the student recognition within the community,
+and allows for the possibility of continued research by working with
+the new functionality.
+
+Following the completion of the source code refactor, PI Smith will
+supervize two such feature development projects, one each in years two
+and three.  The first of which will be adding support for heavy
+element cooling tables that allow for non-solar abundance patterns
 
 \textbf{Science Enabled:}
 
@@ -187,6 +215,12 @@ PI Smith.
 
 - new features from student project 1 (multi-element cooling or
 rad-transfer cooling tables)
+
+%% To support the broader impacts of this effort, we will also host a
+%% workshop to provide instruction and a venue for collaboration for
+%% researchers interested in contributing new features. This will be held
+%% at the Center for Computational Astrophysics (CCA) at the Flatiron
+%% Institute.
 
 \subsection{Year Three: \grackle{}/\dengo{} hybrid solver and
   \grackle{} feature expansion}
