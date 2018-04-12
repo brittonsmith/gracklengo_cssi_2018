@@ -1,4 +1,49 @@
-\section{\dengo{}: Solver Generation and Network Visualization}
+\section{\dengo{}: Solver Generation}
+
+A computational solver for chemical kinetic rate equations is the synthesis of
+three primary components: 1) a set of reactions and their affiliated species,
+2) a collection of reaction rate coefficients and 3) the mechanism of updating
+the state vector from one time to a future time.  Ensuring that a collection of
+reaction rate coefficients is up to date with current theoretical or
+experimental values is straightforward; this requires tracking changes in the
+literature and modifying the input parameters to interpolation tables.
+
+However, when a reaction network requires scaling to a large number of species
+or a large number of reactions (particularly when the connectivity of the
+network is high) the complexity of modifying this reaction network increases
+rapidly.  Adding a single reaction requires modifying the right-hand side
+calculation for all species that appear in that reaction.  This poses
+challenges to ensuring bookkeeping between reaction rates and species are
+correct -- which is a tedious but tractable issue -- but poses entirely new
+challenges when the solver itself is built into the reaction network.  This may
+be the case, for instance, when conducting a Gauss-Seidel update of the
+reaction state vector \textit{during} the timestep update, as is done in
+grackle.
+
+Further complicating the matter is that, while strictly separable from the
+other two components, often the solver itself is written to be intertwined with
+these.  The two primary modes used in astrophysical calculations are explicit
+solvers (where we consider semi-implicit to be a subset) and fully-implicit
+solvers; the latter are typically regarded as considerably slower than the
+former.  The construction of a solver, and the inherent bookkeeping, is prone
+to error, time-consuming, and is inflexible for simple transformations between
+solver methodologies; writing an explicit or semi-implicit solver is an
+entirely different process than writing a fully-implicit solver, and the
+mixture of the model with the implementation is non-trivial.  Furthermore, when
+interconnecting multiple species in non-linear, often non-trivial ways,
+calculation of a Jacobian requires complex and extensive differentiation.
+
+Advances in open source computer algebra systems (CAS) such as SymPy \mjt{CITE
+SYMPY} enable the symbolic and computational description of reaction rate
+networks that can be symbolically and numerically differentiated, as well as
+output into a templated format.  For instance, constructing a reaction network
+composed of a few dozen chemical species and a few hundred reactions can be
+accomplished in only as many lines of code as is necessary to describe them.
+These reaction networks can have Jacobians (exact or approximate) computed 
+and they preserve the notion of an abstract model that can be instantiated into
+one or more different concrete representations of a chemical solver.
+
+``Dengo" is 
 
 \mjt{Small intro of how complex solvers are hard to build, easy to
   make bugs, typos, etc.  Need something beyond hand-built code to
