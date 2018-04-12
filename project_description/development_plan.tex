@@ -176,11 +176,16 @@ PI Smith.
 \subsection{Year Two: \grackle{}: USCD student project 1; \dengo{}:
   hardware acceleration and reaction rate provenance}
 
-\noindent \textbf{Grackle: UCSD student project 1: multi-element
-  metal cooling tables} The goal of refactoring the \grackle{} source
-code and adding hardware acceleration support is to make \grackle{} an
-attractive landing spot for external contribution of new chemistry and
-cooling-related models resulting from scientific research.  
+\noindent \textbf{Dengo: hardware acceleration}
+
+\noindent \textbf{Dengo: reaction rate provenance}
+
+\noindent \textbf{Grackle: UCSD student project 1:
+  composition-dependent metal cooling tables} The goal of refactoring
+the \grackle{} source code and adding hardware acceleration support is
+to make \grackle{} an attractive landing spot for external
+contribution of new chemistry and cooling-related models resulting
+from scientific research.
 %% Examples of these include spatially constant models of the evolving UV
 %% background radiation from stars and black holes
 %% \citep[e.g.,][]{2009ApJ...703.1416F, 2012ApJ...746..125H};
@@ -206,8 +211,20 @@ the new functionality.
 
 Following the completion of the source code refactor, PI Smith will
 supervize two such feature development projects, one each in years two
-and three.  The first of which will be adding support for heavy
-element cooling tables that allow for non-solar abundance patterns
+and three.  The first of which will be adding support for
+composition-dependent heavy element cooling tables.  \grackle{'s}
+current metal cooling tables assume a solar abundance for metals,
+which has been sufficient for simulations that consider only a single
+source of metal production, i.e. Type II supernovae (SN). However, recent
+simulations \citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}
+now include metal enrichment addition sources, like Type Ia SN
+and winds from intermediate mass stars, which produce distinct abundance
+patterns and associated cooling rates.  In order to support these type
+of models in \grackle{}, we will implement the method of
+\citet{2013MNRAS.433.3005D} (updated for the latest UV backgrounds),
+which consider a two component metallicity consisting of alpha
+elements (from Type II SN) and iron-peak elements (from Type Ia SN and
+intermediate mass stars).
 
 \textbf{Science Enabled:}
 
@@ -414,10 +431,6 @@ These codes and tables supply important functionality, but it is
 not their aim to provide a flexible API to large simulations, nor to
 act as a two-way resource that both serves and invites contribution
 from the larger community.
-
-\bds{We could also mention a few of the various reaction networks for
-  which no code is available or easy to obtain.  We could then say
-  that these could all be used with Dengo.}
 
 The \grackle{} project has focused on providing optimized, easily
 adoptable functionality that is independent of simulation code
