@@ -1,6 +1,6 @@
 # use glob syntax.
 syntax: glob
-
+extra_docs/
 *~
 *.aux
 *.log
