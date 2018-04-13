@@ -160,12 +160,7 @@ SDSC's Comet supercomputer has 36 NVIDIA dual K80 nodes and 36 NVIDIA
 XSEDE facilities to provide modules of pre-built \grackle{}
 libraries. This phase of the project will be released as \grackle{}
 version 4.1. Included in this release will be documentation aimed at
-new developers with instructions for parallelizing new features.  To
-support the broader impacts of this effort, we will also host a
-workshop to provide instruction and a venue for collaboration for
-researchers interested in contributing new features. This will be held
-at the Center for Computational Astrophysics (CCA) at the Flatiron
-Institute.  PI Smith will be responsible for this work.
+new developers with instructions for parallelizing new features.
 
 \noindent \textbf{Dengo explicit solver generation}
 \mjt{Help here, please!}
@@ -178,18 +173,96 @@ PI Smith.
 
 - tuning experiments with grackle will guide development
 
-\subsection{Year Two: \grackle{}: feature expansion; \dengo{}:
-  hardware acceleration and reaction rate database support}
+\subsection{Year Two: \grackle{}: USCD student project 1; \dengo{}:
+  hardware acceleration and reaction rate provenance}
 
-\textbf{Science Enabled:}
+\noindent \textbf{Dengo: hardware acceleration}
 
 - Devin's non-equilibrium stuff goes faster
 
-- new features from student project 1 (multi-element cooling or
-rad-transfer cooling tables)
+\noindent \textbf{Dengo: reaction rate provenance}
 
-\subsection{Year Three: \grackle{}/\dengo{} hybrid solver and
-  \grackle{} feature expansion}
+\noindent \textbf{Grackle: UCSD student project 1:
+  composition-dependent metal cooling tables} The goal of refactoring
+the \grackle{} source code and adding hardware acceleration support is
+to make \grackle{} an attractive landing spot for external
+contribution of new chemistry and cooling-related models resulting
+from scientific research.
+%% Examples of these include spatially constant models of the evolving UV
+%% background radiation from stars and black holes
+%% \citep[e.g.,][]{2009ApJ...703.1416F, 2012ApJ...746..125H};
+%% approximations for molecular and atomic self-shielding of external
+%% radiation \citep[e.g.,][]{2012MNRAS.425L..51W, 2013MNRAS.430.2427R};
+%% and tables of heavy element cooling rates
+%% \citep[e.g.][]{2008MNRAS.385.1443S, 2009MNRAS.393...99W}.
+These models are critical to galaxy formation and evolution
+simulations as they are simplifications of crucial processes that
+would be computationally prohibitive to calculate directly.  
+%% Too often, the 
+%% only publicly available forms of these models are the publications
+%% describing them, in which important implementation details might be
+%% omitted.
+In a survey of \grackle{} users carried out in Spring 2017, a number
+of such models were identified as features wanted by the community.
+Implementing one of these features is an excellent undergraduate
+student project as it has a well-defined endpoint, requires learning
+from the scientific literature, provides experience with developing
+software for HPC, gives the student recognition within the community,
+and allows for the possibility of continued research by working with
+the new functionality.
+
+Following the completion of the source code refactor, PI Smith will
+supervize two such feature development projects, one each in years two
+and three.  The first of which will be adding support for
+composition-dependent heavy element cooling tables.  \grackle{'s}
+current metal cooling tables assume a solar abundance for metals,
+which has been sufficient for simulations that consider only a single
+source of metal production, i.e. Type II supernovae (SN). However, recent
+simulations \citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}
+now include metal enrichment addition sources, like Type Ia SN
+and winds from intermediate mass stars, which produce distinct abundance
+patterns and associated cooling rates.  In order to support these type
+of models in \grackle{}, we will implement the method of
+\citet{2013MNRAS.433.3005D} (updated for the latest UV backgrounds),
+which consider a two component metallicity consisting of alpha
+elements (from Type II SN) and iron-peak elements (from Type Ia SN and
+intermediate mass stars).
+
+\subsection{Year Three: \grackle{}/\dengo{} adaptive solver;
+  \grackle{}: USCD student project 2}
+
+\noindent \textbf{Grackle/Dengo adaptive solver}
+
+Reaction rate grouping to deacrease stiffness and enforce species
+conservation in ``chemical families''
+\citep{doi:10.1002/kin.550100907, SANDU19973151}.
+
+Asymptotic methods for explicit solvers of stiff networks
+\citep{1749-4699-6-1-015001}
+
+Quasi-steady-state methods \citep{1749-4699-6-1-015002}
+
+Partial equilibrium methods \citep{1749-4699-6-1-015003}
+
+\noindent \textbf{Grackle: UCSD student project 2: metal cooling
+  tables for radiation hydrodynamics simulations}
+Due to the expense of radiation transport, simulations have
+traditionally modelled the radiative feedback from stars with the
+injection of additional thermal energy into the fluid.  However,
+increasingly simulations have been able to include radiation
+hydrodynamics \citep{2012MNRAS.427..311W, Xu_2013, Wise_2014,
+  OShea_2015}, which has allowed for more accurate treatments of the
+radiative component of stellar feedback.  However, these simulations
+still only account for the radiative heating of primordial elements, H
+and He, and heating of the metals has been notably ignored, which can
+lead to significant over-cooling \citep{2011MNRAS.413..190T,
+  2012MNRAS.427..311W}.  The purpose of this project will be to create
+metal cooling tables specifically designed for this new generation of
+radiation hydrodynamics simulations.  We will use the \texttt{Cloudy}
+photoionization code to produce cooling tables resulting from the
+radiation of simple stellar populations.  These tables will allow for
+more accurate calculation of thermal properties of the interstellar
+medium due to local stellar sources.
 
 \textbf{Science Enabled:}
 
@@ -381,10 +454,6 @@ not their aim to provide a flexible API to large simulations, nor to
 act as a two-way resource that both serves and invites contribution
 from the larger community.
 
-\bds{We could also mention a few of the various reaction networks for
-  which no code is available or easy to obtain.  We could then say
-  that these could all be used with Dengo.}
-
 The \grackle{} project has focused on providing optimized, easily
 adoptable functionality that is independent of simulation code
 design.  Through its interoperability with other cross-platform
@@ -434,6 +503,10 @@ systems.
 star formation and provides insight into the needs of that community.
 Prof. Offner will also advise on adding support for \grackle{} to the
 \texttt{ORION} simulation code \citep{2012ApJ...745..139L}.
+{\bf Prof. Dan Reynolds} is an expert in developing highly scalable
+numerical solvers and an original contributor to \dengo{}.
+Prof. Reynolds will provide valuable insight into algorithm design and
+implementation.
 
 The advisory board provides a range of scientific and technical
 expertise as well as experience with community software development.
