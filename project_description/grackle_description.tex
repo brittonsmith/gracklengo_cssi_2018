@@ -152,22 +152,6 @@ development breaking backward compatibility.
 %% design decision made by the project to minimize future work required
 %% by simulation codes using \grackle{}.
 
-%\begin{wrapfigure}[20]{l}{0.50\textwidth}
-%\vspace*{-2\baselineskip}
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.48\textwidth]{figures/cooling_rate.pdf}
-\caption{The cooling rate vs. temperature calculated by \grackle{}
-  (using the \texttt{cooling\_rate.py} example script) for
-  a gas with density of 10$^{-24}$ g/cm$^{-3}$ and solar metallicity,
-  exposed to a radiation field described by the \citet{2012ApJ...746..125H} UV
-  background model at redshift, z = 0.}
-\label{fig:cooling-rate}
-\end{center}
-\vspace*{-1\baselineskip}
-\end{figure}
-%\end{wrapfigure}
-
 \begin{figure}
 \centering
 \begin{subfigure}{.48\textwidth}
@@ -182,9 +166,8 @@ development breaking backward compatibility.
   \caption{Free-fall collapse model (\texttt{freefall.py}).}
   \label{fig:freefall}
 \end{subfigure}%
-\caption{Example output from Python scripts included in the \grackle{}
-  source using \texttt{pygrackle}'s helper functions for evolving
-  fluid containers.}
+\caption{Output from sample \texttt{pygrackle} scripts included in the \grackle{}
+  source.}
 \label{fig:evolve}
 \vspace*{-1\baselineskip}
 \end{figure}
@@ -201,8 +184,8 @@ is provided, exposing the main functionality as well as additional helper
 functions useful in semi-analytic models, such as computing the
 thermal evolution of a parcel of gas at constant density or undergoing
 free-fall collapse.  Sample Python scripts are included in the source,
-the running of which results in a figure of merit (shown in Figures
-\ref{fig:cooling-rate} and \ref{fig:evolve}).
+the running of which results in a figure of merit (shown in Figure
+\ref{fig:evolve}).
 
 \subsection{\grackle{} Architecture}
 
