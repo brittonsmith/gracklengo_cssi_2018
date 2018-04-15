@@ -454,6 +454,38 @@ it had as a component of \texttt{Enzo}.  In that time, the code has
 received commits from 16 different contributors and has had several different
 ``release managers" drawn from the community.
 
+\subsection{Future Challenges}
+
+The strength of the \grackle{} community is a testament to the
+project's ability to meet the current needs of its users.  However,
+those needs will continue to evolve as the scientific frontier
+advances and simulations increase in sophistication.  In order to
+prioritize future development, a survey of \grackle{} users was
+conducted in Spring 2017, allowing respondents to submit feature
+requests.  Many of the highly desired features were newly published
+models and minor enhancements, their implementation constituting
+well-define development projects suitable for students.  Two of these
+are included in the proposed work.  However, the most desired
+capability (over 75\% of respondents) was the inclusion of additional
+elements in the chemistry solver.  In addition to aiding current
+users, this functionality would also open \grackle{} up to simulators
+of present-day star formation and the local interstellar medium (ISM)
+who require, minimally, the addition of C and O and their
+associated molecules to \grackle{'s} current network.  Looking beyond
+this, the ability to add even more complexity, including species of
+N, F, and S as well as molecular isotopologues
+\citep{2008ApJ...679..481P}, deuterated molecules
+\citep{2005ApJ...619..379C}, polycyclic aromatic hydrocarbons, and
+additional dust variations \citep{2013RvMP...85.1021T}, will be crucial
+to interpreting new observations coming from facilities like the
+Atacama Large Millimeter/submillimeter Array (ALMA).
+
+Yet, as the complexity and connectivity of the network increases, so
+will the difficulty of implementation and the rate of error.  Keeping
+pace with demands through manual development will eventually become
+untenable.  Instead, we propose a different strategy where complex
+networks are machine-generated.
+
 %% This SSE will establish \grackle{} as a vital software element for the
 %% computational astrophysics community.  It will allow the code to adapt
 %% to the latest technologies that will enable the next generation of
