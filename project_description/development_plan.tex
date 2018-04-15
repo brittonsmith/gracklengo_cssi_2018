@@ -296,16 +296,46 @@ intermediate mass stars).
 
 \noindent \textbf{Grackle/Dengo adaptive solver}
 
-Reaction rate grouping to deacrease stiffness and enforce species
+Simulations that span many orders of magnitude in density, straddle different
+ionization states and energies and that involve sharp or rapid progression of
+boundary conditions (such as supernovae) are particularly challenging for
+either fully-implicit or explicit solvers.  In the regions where the stiffness
+of the chemical kinetic rate equations is low, the overhead and cost of an
+implicit solver is likely too high for efficient computation; in the regions
+where the chemical kinetics require tight error control, the usage of an
+explicit solver can result in calculations that either take far too long due to
+ringing or oscillation or that simply produce incorrect results.  Of particular
+concern are situations where some reaction rates are stiff and others are not.
+In some instances (notably in the simulation of the first stars in the
+universe) the chemical reaction network can become the limiting step at high
+densities, but is trivial at low densities.
+
+A number of algorithmic approaches have been developed to address these concerns;
+for instance, grouping reaction rates to decrease stiffness and enforce species
 conservation in ``chemical families''
-\citep{doi:10.1002/kin.550100907, SANDU19973151}.
+\citep{doi:10.1002/kin.550100907, SANDU19973151}, or applying 
+asymptotic methods for explicit solvers of stiff networks
+\citep{1749-4699-6-1-015001}.  Further approaches such as 
+quasi-steady-state (QSS) methods \citep{1749-4699-6-1-015002} and 
+partial equilibrium (PE) methods \citep{1749-4699-6-1-015003} may provide
+additional opportunities for adaptive approaches that provide accuracy and
+speed.
 
-Asymptotic methods for explicit solvers of stiff networks
-\citep{1749-4699-6-1-015001}
-
-Quasi-steady-state methods \citep{1749-4699-6-1-015002}
-
-Partial equilibrium methods \citep{1749-4699-6-1-015003}
+During PY3, the research teams of PIs Smith and Turk will implement these
+methods within the joint framework.  This is a crucial capability that is
+fundamentally unavailable at present to computational astrophysics
+calculations; the flexibility of modifying the templated, semantically-aware
+output from the \dengo{} infrastructure while still providing the consistent,
+well-utilized API from within \grackle{} will dramatically broaden the problems
+to which this unified software package can be applied.  By providing multiple
+layers of abstraction from the underlying implementation, solvers can be tuned
+based either on information available to the individual generating the solver
+or to heuristics available from the reaction rates themselves.  At the
+conclusion of PY3, the unified framework will be able to provide comparative
+diagnostics of efficiency and accuracy for mixtures of algorithms for chemical
+families, asymptotic approaches, QSS and PE methods, enabling researcher to
+make informed decisions about their algorithmic choices without requiring the
+overhead of creating a full reimplementation.
 
 \noindent \textbf{Grackle: UCSD student project 2: metal cooling
   tables for radiation hydrodynamics simulations}
