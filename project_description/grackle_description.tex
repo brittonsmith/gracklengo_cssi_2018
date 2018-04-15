@@ -39,7 +39,7 @@ community.  An example of this cross-platform comparison enabled by
 seen widespread adoption and use outside of participation in AGORA.
 In total, \grackle{} has been adopted by at least 14 different
 simulation codes:
-AREPO, ART-I, ART-II, CHANGA, Cosmos++, Enzo, Gadget, GAMER, GASOLINE, Gear,
+AREPO, ART-I, ART-II, ChaNGa, Cosmos++, Enzo, Gadget, GAMER, GASOLINE, Gear,
 Gizmo, RAMSES, SPHS, and SWIFT
 \citep{2010MNRAS.401..791S, 1999PhDT........25K, 2002ApJ...571..563K,
 2008ApJ...672...19R, 2004NewA....9..137W, 2006MNRAS.373.1074S,
@@ -71,8 +71,9 @@ series of specific infrastructure and feature development tasks
 necessary to keep up with the demands of current users, broaden
 applicability to new domains and user bases, and to make \grackle{} a
 self-sustaining community project by the end of the 
-three-year grant period.  The proposed tasks and their order of
-completion have been designed to yield regular major code releases at
+three-year grant period.  While \grackle{} is developed completely openly, and
+is thus in a continuous state of development release, the proposed tasks and their order of
+completion have been designed to yield regular major stable releases at
 the end of each year.
 %% The proposed tasks and their order of
 %% completion have been designed to incrementally make the code more
@@ -105,7 +106,8 @@ self-shielding.  The cooling from heavy elements up to atomic number
 30 (Zn) is calculated by interpolating over tables of cooling and
 heating rates created with the photo-ionization software,
 \texttt{Cloudy} \citep{2013RMxAA..49..137F}.  These
-tables are stored in HDF5 files included with the source.  For
+tables are generated through expensive python scripts and stored in HDF5 files
+included with the \grackle{} source.  For
 increased speed at the expense of accuracy, the cooling from
 primordial elements can also be computed using these tables.  In
 addition to tables calculated assuming collisional ionization only
@@ -117,7 +119,9 @@ support radiation hydrodynamics, \grackle{} also allows the user to supply
 photo-ionization and photo-heating rates for each computational
 element.  Finally, arrays of arbitrary specific and volumetric heating
 rates may be supplied to account for heating from stellar feedback
-models and additional radiation sources.
+models and additional radiation sources.  Between these different models and
+phenomena, nearly the entire collection of relevant radiative processes in
+astrophysical plasmas are tracked and accounted for in \grackle{}.
 
 The \grackle{} library exposes five primary functions useful to a
 hydrodynamic simulation: 1) \texttt{solve\_chemistry} for iterating
@@ -417,7 +421,7 @@ functions is written in \texttt{Cython}.
 The first stable version of the \grackle{} library was released in
 January 2014, with the most recent release (\grackle{} 3.1) on April
 3, 2018.  Since the initial release, the \grackle{} API has been
-implemented in 14 simulation codes and has been used in 48 papers
+implemented in 14 simulation codes and has been used in at least 48 papers
 published in the Astrophysical Journal, Monthly Notices of the Royal
 Astronomical Society, and Nature.  The topics of these publications
 include galaxy, star, and direct collapse black hole formation; dwarf
@@ -447,7 +451,8 @@ and additional features.  The first commit made to the \grackle{}
 project was in October 2012.  Since then, the project has progressed
 under the same philosophy of feature-driven, community development as
 it had as a component of \texttt{Enzo}.  In that time, the code has
-received commits from 16 different contributors.
+received commits from 16 different contributors and has had several different
+``release managers" drawn from the community.
 
 %% This SSE will establish \grackle{} as a vital software element for the
 %% computational astrophysics community.  It will allow the code to adapt

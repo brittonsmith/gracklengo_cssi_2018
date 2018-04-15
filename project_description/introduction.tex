@@ -1,10 +1,11 @@
-\section{The Many Challenges of Chemistry Solving}
+\section{The Many Challenges of Chemical Kinetics}
 
-The formation and evolution of astrophysical structures, such as
-galaxies and molecular clouds, are governed
+The formation and evolution of all astrophysical structures -- from
+the intergalactic medium to galaxies themselves and even down to the scale of
+stars and molecular clouds -- are governed
 by a combination of non-linear phenomena, most notably gravitation,
 hydrodynamics, and the atomic-scale physics that determine the
-efficiency with which a plasma expels energy via radiative and
+efficiency with which a plasma sheds energy via radiative and
 chemical processes.  Within simulation codes, gravity and
 hydrodynamics solvers are relatively low-maintenance components, in
 that they very rarely require updates due to advances in our
@@ -20,12 +21,12 @@ from theoretical calculations \citep[e.g.,][]{2007MNRAS.377..705F,
 \citep[e.g.,][]{2010Sci...329...69K, 2010PhRvA..82d2708B,
   2011PhRvA..84e2709M, 2015JPhCS.635b2092R, 2015ApJS..219....6O,
   2016ApJ...816...31D, 2016ApJ...832...31V}, and even improved integration
-methods \citep[e.g.,]{CURTIS2017312, 2014JCoPh.256..854N}.  As a result, there
+methods \citep[e.g.,][]{CURTIS2017312, 2014JCoPh.256..854N}.  As a result, there
 has been considerable divergence in the methods employed for solving chemistry
 and cooling within the astronomical community.  This hinders scientific
 progress by making it difficult to directly compare results from
-different simulations and by mandating that considerable effort
-within each research group be devoted keeping methods up to date.  The
+different simulations and by duplicating the tedious effort
+within each research group to keep reaction rates up to date.  The
 \grackle{} chemistry and cooling library was developed with the
 explicit purpose of addressing these problems, and its growing popularity
 demonstrates its clear value to the community.
@@ -46,7 +47,7 @@ computational power will continue to be easily consumed by adopting
 even gradually more sophisticated chemical networks and optimization
 will remain critical.  An even greater challenge is that the
 knowledge base
-informing these solvers is continually evolving.  The rate
+informing these solvers is continually evolving: the rate
 coefficients for many important reactions are still highly uncertain
 \citep{2008MNRAS.388.1627G, 2011ApJ...726...55T} with accepted values
 changing with new results from experimentation
@@ -85,3 +86,7 @@ The tradition throughout the astrophysical simulation community has
 been to develop in-house solvers, geared to the specific design of
 each code and baked directly into the source, making abstraction and
 direct comparison between codes extremely difficult.
+
+\textbf{Our proposed work will not only enhance the ability of
+\textit{existing} applications of chemical kinetics in astrophysics, but will
+enable \textit{entirely new} applications of chemical kinetics.}

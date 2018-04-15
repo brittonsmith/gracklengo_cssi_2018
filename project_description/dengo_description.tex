@@ -18,7 +18,7 @@ correct -- which is a tedious but tractable issue -- but poses entirely new
 challenges when the solver itself is built into the reaction network.  This may
 be the case, for instance, when conducting a Gauss-Seidel update of the
 reaction state vector \textit{during} the timestep update, as is done in
-grackle.
+\grackle{}.
 
 While strictly separable from the other two components, often the solver itself
 is intertwined between them.  The two primary types of solvers used in
@@ -59,7 +59,7 @@ or approximate) computed and they preserve the notion of an abstract model that
 can be instantiated into one or more different concrete representations of a
 chemical solver.
 
-At present, Grackle is a hand-written code, where the order of update, solver
+At present, \grackle{} is a hand-written code, where the order of update, solver
 prescriptions, interpolation of rates and the timestep estimate are all
 intertwined with each other.  This reduces its overall flexibility, but it does
 provide an opportunity for fine-grained and situation-aware optimization such
@@ -67,24 +67,24 @@ as update ordering.  However, it does not provide the flexibility, automated
 bookkeeping and solver interoperability as would be provided through alternate,
 symbolically defined reaction systems.
 
-To address these limitations, we will further develop the project ``Dengo"
+To address these limitations, we will further develop the project \dengo{}
 started by Co-I Turk; this is a solver construction kit based on a combination
 of SymPy and the templating library Jinja2.  
 
 
-Dengo includes full reaction networks for primordial gas, ionization of
+\dengo{} includes full reaction networks for primordial gas, ionization of
 interstellar, and formation of molecules using UMIST
-\citep{2013A&A...550A..36M}.  Constructing a solver using Dengo is done by
+\citep{2013A&A...550A..36M}.  Constructing a solver using \dengo{} is done by
 choosing a collection of species to evolve, choosing the relevant chemical
 kinetic and radiative cooling equations that interlink them, and then
 identifying the solver that will update the coupled differential equations at
 each timestep.
 
-Utilizing the existing Grackle
-solver as a reference implementation, we will unify the two projects; Dengo
+Utilizing the existing \grackle{}
+solver as a reference implementation, we will unify the two projects; \dengo{}
 accepts reaction networks, chemical species (and their metadata), reaction
 rates, and an API or implementation of an iterative solver, and generates
-templated output code.  At present, Dengo can generate C code with Python
+templated output code.  At present, \dengo{} can generate C code with Python
 interfaces, utilizing either a backwards-Euler iterative solver or the SUNDIALS
 suite of tools; furthermore, it has been recently instrumented to generate
 OpenMP-aware code, although testing is still underway to ensure correctness and
@@ -97,7 +97,7 @@ scalability.
 \end{itemize}
 
 By unifying these two projects, we will bring to \textit{existing} users of
-Grackle the ability to construct flexible networks that solve either a subset
+\grackle{} the ability to construct flexible networks that solve either a subset
 of the typical reactions or a larger superset, and that are able to utilize
 higher-order solvers for situations when reactions become particularly stiff.
 Unifying the APIs will ensure that \textit{no additional code changes} are
