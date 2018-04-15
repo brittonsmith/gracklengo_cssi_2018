@@ -209,10 +209,10 @@ interface is built upon a number of widely used Python packages, including
   and \url{http://yt-project.org/}, respectively} \citep[][an SI2-funded
 project]{2011ApJS..192....9T}.  In
 addition, the project infrastructure relies on the following packages:
-Mercurial as the version control system; BitBucket.org to host the
-main repository; Sphinx for building documentation; readthedocs.org to
-host the latest build of the documentation; pytest for testing; and BitBucket
-Pipelines for continuous integration testing.
+Mercurial for version control; BitBucket.org for repository hosting;
+Sphinx for building documentation; readthedocs.org for documentation
+hosting; pytest for testing; and BitBucket Pipelines for continuous
+integration testing.
 
 \subsubsection{The Core Library}
 \label{sec:core-library}
@@ -226,39 +226,36 @@ take longer time-steps than explicit methods, which are limited by the
 shortest time-scale within the network.  However, a number of factors
 can make an explicit scheme more attractive in certain situations,
 particularly when the network is a component in a more complex physical
-model governed by additional time-scales, as is the case here
-\citep{2012JCoPh.231.5266G}.  Such factors include a higher
-computational cost per solve with an implicit solver, steeper scaling
+model governed by additional time-scales \citep{2012JCoPh.231.5266G},
+as is the case here.  Such factors include a higher
+computational cost per implicit solve, steeper scaling
 with the number of species, and the potential for hand-tuning of
 explicit solvers for greater speed.  \grackle{} solves the primordial
 chemistry network using an explicit method with a series of
 optimizations shown by \citet{1997NewA....2..181A} to achieve
 significant speedup with minimal cost to stability.  These
 optimizations include replacing the fastest evolving species with
-their thermal equilibrium values, tuning the order in which species
-are updated, and switching between analytical and numerical time
-derivatives when the system is close to equilibrium.  The time-steps
-passed to \grackle{} from the simulation code are often much longer
-than the relevant internal
-time-scales.  To account for this, \grackle{} iterates in
-``subcycles'' over time-steps limited by no more than 10\% of the
-cooling time ($e/\dot{e}$) and chemical time-scales ($n/\dot{n}$) for
-neutral H and for electrons.
+their thermal equilibrium values, tuning the order of species updates,
+and switching between analytical and numerical time derivatives when
+the system is near equilibrium. To account for long time-steps passed
+from the simulation code, \grackle{} iterates in ``subcycles'' over
+time-steps limited by no more than 10\% of the cooling time
+($e/\dot{e}$) and chemical time-scales ($n/\dot{n}$) for neutral H and
+for electrons.
 
 \begin{figure}[h]
 \centering
 \begin{subfigure}{.54\textwidth}
   \centering
   \includegraphics[width=0.98\textwidth]{figures/performance.pdf}
-  \caption{Serial performance - Top: time
-    to integrate a fluid container with 64$^{3}$ elements, with the
-    tabulated cooling (``equilibrium'', left), the atomic chemistry
-    (``6-species'', middle), and H$_{2}$ molecular chemistry
-    (``9-species'', right) models.  Bottom: time normalized by the
+  \caption{Serial performance - Top: integration time for a 64$^{3}$
+    element fluid container, with tabulated cooling (``equilibrium'',
+    left), atomic chemistry (``6-species'', middle), and H$_{2}$ molecular chemistry
+    (``9-species'', right).  Bottom: time normalized by the
     average subcycles per cell.  Colors denote the full solve
     (blue), temperature calculation (red), primordial (black) and metal
-    (magenta) cooling rate calculation, and interpolation of chemistry
-    rate coefficients (cyan).}
+    (magenta) cooling calculation, and interpolation of rate
+    coefficients (cyan).}
   \label{fig:single-proc}
 \end{subfigure}%
 \hspace{0.02\textwidth}
@@ -273,9 +270,8 @@ neutral H and for electrons.
     $64^3$ cells.}
   \label{fig:openmp}
 \end{subfigure}%
-\caption{Figures 5 (left) and 6 (right) from
-  \citet{2017MNRAS.466.2217S}, showing the single processor
-  performance and OpenMP efficiency of \grackle{}'s solvers.}
+\caption{Serial performance (left) and OpenMP efficiency of
+  \grackle{'s} solvers \citep[from][]{2017MNRAS.466.2217S}.}
 \label{fig:performance}
 \vspace*{-1\baselineskip}
 \end{figure}
@@ -287,11 +283,9 @@ following the method of \citet{2008MNRAS.385.1443S}.
 The metal cooling component is calculated within the same subcycle
 iteration as the chemistry solver and contributes to the cooling time
 time-step limiter.
-If using a UV background model, (e.g.,
-\citet{2009ApJ...703.1416F} or \citet{2012ApJ...746..125H}),
-additional tables also provide photo-ionization, photo-dissociation,
-and photo-heating rates for the various atomic and molecular species
-in the primordial chemistry as a function of redshift.
+If using a UV background model,
+additional tables also provide photo-ionization, -dissociation, and
+-heating rates for the various species.
 The tables distributed with the source code are calculated with the
 photo-ionization code, \texttt{Cloudy}, but can in principle be
 generated by other similar codes, such as \texttt{Mappings III}
@@ -305,19 +299,19 @@ languages, particularly C++ and Fortran.  Most of \grackle{}'s
 internal functionality is written in Fortran to make use of the
 language's efficient loop and array operations.
 The internal machinery is optimized to work with a set of arrays of
-densities and internal energies, referred to collectively as a ``fluid
-container'', where the arrays can represent either a three-dimensional
+densities and internal energies, referred to as a ``fluid
+container'', where the arrays represent either a three-dimensional
 grid with inactive ghost zones or a one-dimension set of particles.
 The solvers are designed to make the best possible use of cache by
 operating on field data in the order in which it is stored in memory.
-The core chemistry and cooling computations are performed on
+The core computations are performed on
 contiguous sub-segments of the field arrays to allow for loops to be
-unrolled by compilers for more efficient vector operations.  For
-three-dimensional grids, these sub-segments are pencil-beams of all $i$
-values for given values $k$ and $j$ in an $i\times j\times k$ cube.
-For 1D arrays of particles, analogous divisions can be used to break
-the arrays into multiple sub-segments to be passed to the core
-functions.
+unrolled by compilers for more efficient vector operations.
+%% For three-dimensional grids, these sub-segments are pencil-beams of all $i$
+%% values for given values $k$ and $j$ in an $i\times j\times k$ cube.
+%% For 1D arrays of particles, analogous divisions can be used to break
+%% the arrays into multiple sub-segments to be passed to the core
+%% functions.
 
 \noindent
 {\bf Performance}
@@ -325,20 +319,15 @@ In Figure \ref{fig:single-proc}, we
 display performance results for \grackle{}'s different solvers.  For
 this test, we initialize a 3D fluid container with 64$^{3}$ elements
 with density, temperature, and metallicity varying smoothly in each
-dimension over the following ranges: $\log (n_{\rm H} /
-\textrm{cm}^{-3}) = [-1, 3]$, $\log (T/\textrm{K}) = [1, 8]$, and
-$\log (Z/Z_\odot) = [-4, 0]$.  We then evolve the fluid container for
-500 years (through repeated called to \texttt{solve\_chemistry}) on a
-single core of an Intel Xeon ``Westmere'' E5645 CPU (dual-processor with
-6 cores/processor at 2.4 GHz).  On this machine, \grackle{} performs
+dimension and evolve it for a period of 500 years.  On the test
+machine, \grackle{} performs
 roughly 0.5-1$\times10^{6}$ full solves per second and at least
 10$^{6}$ subcycles per second, depending only slightly on the choice
 of solver.  Due to a lack of similar packages, an absolute evaluation
 of this performance is difficult.  However, a comparison can be made
-to the performance of the \texttt{Enzo} simulation code as a whole.
+to the \texttt{Enzo} simulation code as a whole.
 \citet{2014ApJS..211...19B} perform a weak scaling test of
-\texttt{Enzo} on XSEDE's NICS Kraken (a Cray XT4 with quad-core AMD
-Opteron CPUs at 2.3 GHz) with a simulation including gravity,
+\texttt{Enzo} with a simulation including gravity,
 hydrodynamics, and a chemistry solver analogous to \grackle{}'s atomic
 solver.  They find that \texttt{Enzo} optimally reaches about 10$^{5}$
 full cell updates per second, suggesting that \grackle{} would consume
@@ -358,16 +347,13 @@ In Figure \ref{fig:openmp}, we show the OpenMP efficiency of
 \grackle{}'s functions for the most and least complex versions
 of the solver.  Here, we define parallel efficiency as the ratio of
 multi- to single-thread performance.  The test is run using 20 OpenMP
-threads on an Intel Xeon E5-2670 v2 CPU (dual-processor with 10
-cores/processor at 2.50 GHz) for fluid container sizes from 4$^{3}$ to
-64$^{3}$.  For only 16$^{3}$ fluid elements, the efficiency is 60-90\%
+threads for fluid container sizes from 4$^{3}$ to
+64$^{3}$.  At 16$^{3}$ elements, the efficiency is 60-90\%
 for all computationally expensive routines.  The four routines that
-show relatively poor efficiency are very inexpensive (for example, see
-the 9-species, molecular version of \texttt{calculate\_temperature} as
-shown in Figure \ref{fig:single-proc}) and so contribute negligibly to
-the total cost.  This parallelism can also be beneficial to pure-MPI codes
+show relatively poor efficiency are very inexpensive and so contribute negligibly to
+the total cost.  This parallelism can also help pure-MPI codes
 where memory requirements force the use of fewer than the total number
-of cores on a node, as is often the case.
+of cores on a node.
 
 \subsubsection{\texttt{pygrackle}: The Python Interface}
 
@@ -384,20 +370,20 @@ and \texttt{pip}.
 
 \texttt{pygrackle} uses an Object-Oriented design centered around
 \texttt{FluidContainer} objects.  Analogous to the C \texttt{struct}
-by which fields are passed to the \grackle{} library functions, the
-\texttt{FluidContainer} object stores field values as \texttt{NumPy}
-arrays.  The field arrays use an enhanced version of the
-\texttt{NumPy} array, provided by the \yt{} package, that allows
-the values to have units that can be expressed and converted
-symbolically.  For example, an array, \texttt{x}, of densities in units of
+by which fields are passed to the \grackle{} functions, the
+\texttt{FluidContainer} stores field values as \texttt{NumPy}
+arrays.  The field arrays use an enhanced \texttt{NumPy} array,
+provided by \yt{}, that endows values with symbollically expressable
+and convertible units.  For example, an array, \texttt{x}, of densities in units of
 g/cm$^{3}$, can undergo unit conversion by doing:
 \texttt{x.to("Msun/kpc**3")}.  The core \grackle{} functions exist as
-class methods hanging off the \texttt{FluidContainer} object.  For
-example, to calculate the cooling time for a \texttt{FluidContainer}
-object, \texttt{fc}, the syntax is
-\texttt{fc.calculate\_cooling\_time()}.  The interface layer
-connecting the high-level Python data structures to \grackle{}'s C
-functions is written in \texttt{Cython}.
+class methods hanging off the \texttt{FluidContainer} object.
+%% For example, to calculate the cooling time for a \texttt{FluidContainer}
+%% object, \texttt{fc}, the syntax is
+%% \texttt{fc.calculate\_cooling\_time()}.
+%% The interface layer
+%% connecting the high-level Python data structures to \grackle{}'s C
+%% functions is written in \texttt{Cython}.
 
 \subsection{Community and Usage Metrics}
 
@@ -406,11 +392,11 @@ January 2014, with the most recent release (\grackle{} 3.1) on April
 3, 2018.  Since the initial release, the \grackle{} API has been
 implemented in 14 simulation codes and has been used in at least 48 papers
 published in the Astrophysical Journal, Monthly Notices of the Royal
-Astronomical Society, and Nature.  The topics of these publications
-include galaxy, star, and direct collapse black hole formation; dwarf
-and disk galaxies; the high redshift interstellar medium; the
-Lyman-alpha forest; history of the Milky Way; reionization; supernova
-remnants; metal mixing; and turbulence.  This usage has grown steadily
+Astronomical Society, and Nature.  The paper topics include galaxy,
+star, and black hole formation; dwarf
+and disk galaxies; high redshift interstellar medium; Lyman-alpha
+forest; history of the Milky Way; reionization; supernova
+remnants; metal mixing; and turbulence.  Usage has grown steadily
 from year to year, with 1 publication using \grackle{} in 2014, 5 in
 2015, 11 in 2016, 22 in 2017, and 9 as of April, 2018.  The
 \grackle{} mailing list currently has 76 subscribers, increasing by
@@ -421,16 +407,16 @@ by Peter Anninos and collaborators in the mid-1990s
 \citep{1997NewA....2..209A, 1997NewA....2..181A} and incorporated into
 the simulation code, \texttt{Enzo} \citep[][licensed under the
   3-clause, revised BSD license]{2014ApJS..211...19B} a few
-years later.  As a component of \texttt{Enzo}, the chemistry and
-cooling solver was developed through contributions made by many in the
+years later.  As a component of \texttt{Enzo}, the chemistry solver
+was developed through contributions made by many in the
 \texttt{Enzo} community, including PIs Britton Smith and Matthew Turk
 and collaborators Greg Bryan and Simon Glover.  In response to a call for
 a ``common physics package'' to enable a large, multi-simulation
 comparison project \citep[AGORA,][]{2014ApJS..210...14K,
   2016ApJ...833..202K}, PI Smith extracted the chemistry and
 cooling machinery from \texttt{Enzo} and converted it into a
-stand-alone, linkable library that included a number of improvements
-and additional features.  The first commit made to the \grackle{}
+stand-alone, linkable library with a number of improvements
+and new features.  The first commit made to the \grackle{}
 project was in October 2012.  Since then, the project has progressed
 under the same philosophy of feature-driven, community development as
 it had as a component of \texttt{Enzo}.  In that time, the code has
@@ -463,10 +449,9 @@ N, F, and S as well as molecular isotopologues
 additional dust variations \citep{2013RvMP...85.1021T}, will be crucial
 to interpreting new observations coming from facilities like the
 Atacama Large Millimeter/submillimeter Array (ALMA).
-
 Yet, as the complexity and connectivity of the network increases, so
 will the difficulty of implementation and the rate of error.  Keeping
-pace with demands through manual development will eventually become
+pace with demands through manual development will become
 untenable.  Instead, we propose a different strategy where complex
 networks are machine-generated.
 
