@@ -26,8 +26,7 @@ has been considerable divergence in the methods employed for solving chemistry
 and cooling within the astronomical community.  This hinders scientific
 progress by making it difficult to directly compare results from
 different simulations and by duplicating the tedious effort
-within each research group to keep reaction rates up to date.  \mjt{Do we need
-this next sentence, or should we put it later?} The
+within each research group to keep reaction rates up to date. The
 \grackle{} chemistry and cooling library was developed with the
 explicit purpose of addressing these problems, and its growing popularity
 demonstrates its clear value to the community.
@@ -42,11 +41,13 @@ requires between 11 and 15 species and roughly 20 to 30 reactions
 \citep{1997NewA....2..181A, 1998A&A...335..403G}.
 Adding just carbon and oxygen increases the minimal network to 
 roughly 15-30 species and more than 50 reactions
-and potentially up to almost 500, depending on the desired level of
+and potentially up to almost 500, depending on the level of
 accuracy \citep{2005ApJ...626..627O, 2012MNRAS.421..116G}.  Increases in
 computational power will continue to be easily consumed by adopting
 even gradually more sophisticated chemical networks and optimization
-will remain critical.  An even greater challenge is that the
+will remain critical.  Additionally, the likelihood of implementation
+errors will only increase with the complexity of the network
+\citep{taschuk2017ten}. An even greater challenge is that the
 knowledge base
 informing these solvers is continually evolving: the rate
 coefficients for many important reactions are still highly uncertain
@@ -86,10 +87,10 @@ and reionization \citep{2014ApJ...789L..32K, 2015ApJ...811....3S}.
 The tradition throughout the astrophysical simulation community has
 been to develop in-house solvers, geared to the specific design of
 each code and baked directly into the source, making abstraction and
-direct comparison between codes extremely difficult.  Furthermore, these solers
-are often hand-crafted, requiring considerable technical maintenance to evolve
-to address accelerator technologies and improved methods such as partial
-equilibrium calculations.
+direct comparison between codes extremely difficult.  Furthermore,
+these solvers are often hand-crafted, requiring considerable technical
+maintenance for expansion, improved numerical methods, or technical
+enhancements like addressing evolving accelerator technologies.
 
 We propose the unification of two different projects -- \grackle{}, for solving
 chemical kinetic rate equations and \dengo{}, for \textit{generating} chemical
