@@ -224,6 +224,27 @@ completion before activating the non-equilibrium network
 
 \noindent \textbf{Dengo: reaction rate provenance}
 
+Reaction rate coefficients provide the key system for interconnection of a
+reaction rate network; these are often determined either via theoretical
+calculation or through experimental results.  In many cases, the precise value
+to use is not necessarily clear \citep[][see, e.g.,]{2011ApJ...726...55T} and
+may also introduce considerable uncertainty into the end-result of a
+calculation.  \grackle{} provides primary-literature citations for all of its
+rates, as does \dengo{}, but at present the choice of which rate to use (for
+instance, to replicate prior results) is not easily accessible.  This limits
+the reproducibility of results, as older rates may no longer be easily
+accessible, which undercuts the ability of a simulation code to understand
+detailed reasons for changes in behavior.  During this phase of the
+development, \dengo{} will be instrumented with reaction rate provenance
+features.  Similar to the \texttt{citation()} function in R, the output of
+\dengo{} will include both the reaction rate solver as well as citations to the
+primary literature of the source of each reaction rate coefficient.  This will
+be embedded in the solver, in the reaction rates output by the solver, and in
+optionally-output text in the initialization step of the solver.  As a
+secondary function, \dengo{'s} generation of reaction rate coefficient tables
+will be augmented to enable easier toggling of older reaction rates as well as
+simplified addition of new reaction rates.
+
 \noindent \textbf{Grackle: UCSD student project 1:
   composition-dependent metal cooling tables} The goal of refactoring
 the \grackle{} source code and adding hardware acceleration support is
