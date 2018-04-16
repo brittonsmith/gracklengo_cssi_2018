@@ -383,77 +383,72 @@ medium due to local stellar sources.
 \subsection{Engineering and Release Process}
 
 The \grackle{} project follows an established model for development
-and releases that is based on other successful community software
-projects in which \grackle{}'s developers participate.  The main
-source code repository is hosted on
-BitBucket.org\footnote{\url{https://bitbucket.org/grackle/grackle}}
-and is publicly readable.  Development proceeds via a ``Pull Request''
+and releases that is primarily modelled after that of the \yt{}
+community.  The \yt{} project has similar aims as a cross-platform
+library for simulations and the PIs have played integral roles in
+growing  its community and crafting its governance model.
+\dengo{} will emulate this model. The \grackle{}
+project maintains a Community Code of Conduct and Developer Guide
+to promote a diverse and inviting community.
+
+The \grackle{} and \dengo{}
+source code repositories are hosted on
+BitBucket.org\footnote{\url{https://bitbucket.org/grackle/grackle} and
+\url{https://bitbucket.org/dengo-project/dengo}} and are publicly
+readable.  Development proceeds via a ``Pull Request''
 (PR) model that allows for incoming changes to be effectively
-peer-reviewed before  being accepted into the main branch.  The
-\grackle{} library uses semantic versioning and
-is released with numeric versions in an X.Y.Z format, e.g. ``version
-3.2.1''. Changes to the \grackle{} API or a fundamental restructuring
-of the source (such as the year one development project) constitute
-changes to the X number in a release.  A change in Y occurs when new,
-non-API-breaking features are added.  A change in Z marks a release
-containing only bugfixes, but no new functionality.
+peer-reviewed before being merged.
+Experienced developers are granted write-access to the repo and can
+merge a PR once consensus has been reached.
+These experienced developers also act as release managers for stable
+releases. \grackle{} uses semantic versioning to provide clear
+indicators of backward incompatible changes, new features, and bug fixes.
 
-This development process is primarily modelled after that
-of the \yt{} community.  The \yt{} project has similar
-aims as a cross-platform library for simulations and the PIs have
-played integral roles in growing 
-its community and crafting its governance model.  Similar to
-\yt{}, the \grackle{} project maintains a Community Code of
-Conduct and Developer Guide documents to promote a diverse and
-inviting community.
-
-\grackle{} is developed using the Mercurial distributed version
-control system.  The main repository on BitBucket.org is publicly
-readable with write-access currently granted to a handful of the most
-experienced developers.  The Pull Request model is used even by those
-with write access to the main repo.  In this model, a contributor
-``forks'' the main repository, commits changes to their fork, and then
-submits a PR allowing other developers to review the
-line-by-line changes.  Reviewers leave comments or ``approve'' the
-PR and it is eventually accepted or declined in a process
-analogous to peer-review for publications.  At the present time, this
-usually proceeds with the lead developer (PI Britton Smith) serving as
-PR manager by identifying appropriate reviewers (including
-himself) and soliciting comments.  As the community continues to grow,
-this role can become codified and rotated amongst multiple people.
-\grackle{} has received 76 PRs since the first release.
+%% \grackle{} is developed using the Mercurial distributed version
+%% control system.  The main repository on BitBucket.org is publicly
+%% readable with write-access currently granted to a handful of the most
+%% experienced developers.  The Pull Request model is used even by those
+%% with write access to the main repo.  In this model, a contributor
+%% ``forks'' the main repository, commits changes to their fork, and then
+%% submits a PR allowing other developers to review the
+%% line-by-line changes.  Reviewers leave comments or ``approve'' the
+%% PR and it is eventually accepted or declined in a process
+%% analogous to peer-review for publications.  At the present time, this
+%% usually proceeds with the lead developer (PI Britton Smith) serving as
+%% PR manager by identifying appropriate reviewers (including
+%% himself) and soliciting comments.  As the community continues to grow,
+%% this role can become codified and rotated amongst multiple people.
+%% \grackle{} has received 76 PRs since the first release.
 
 \grackle{} contains a suite of unit and answer
 tests that can be run manually using the \texttt{pytest} package.  The
-test suite is also run automatically on the central repository and its
+test suite runs automatically on the central repository and its
 forks using the Bitbucket Pipelines continuous integration service.
-When a new PR is issued, the results of the test suite are
-shown on the PR's web page with links to more detailed
-output which can be examined when failures occur.  The test suite
-includes a variety of different tests to guard against regression.
-Several ``unit tests'' exist to ensure that fundamental
-constraints are not violated.  For example, the cooling rates should
-match for identical fluid containers that have different internal unit
-systems or are in different cosmological reference frames (i.e.,
-comoving or proper).  \grackle{} also has a series of ``answer
-tests'', wherein the results of specific calculations are compared
-against stored values from prior versions.  Finally, to ensure that
-the library continues to function as advertised, the test suite
-attempts to compile and run the example codes that demonstrate the
-APIs.
+The test suite includes a variety of ``unit tests`` to ensure against
+violation of fundamental contraints and ``answer tests`` to prevent
+results from drifting. The test suite will also attempt to compile and
+run all code examples.
 
-\grackle{}'s documentation is included in the source and is written in
-reStructuredText, which can be converted to HTML and PDF formats
-using the Sphinx package.  An HTML rendering of the documentation is
-also hosted on
-readthedocs.org\footnote{\url{https://grackle.readthedocs.io}},
-and is automatically rebuilt when changes are added to the main
-repository.
+%% The test suite
+%% includes a variety of different tests to guard against regression.
+%% Several ``unit tests'' exist to ensure that fundamental
+%% constraints are not violated.  For example, the cooling rates should
+%% match for identical fluid containers that have different internal unit
+%% systems or are in different cosmological reference frames (i.e.,
+%% comoving or proper).  \grackle{} also has a series of ``answer
+%% tests'', wherein the results of specific calculations are compared
+%% against stored values from prior versions.  Finally, to ensure that
+%% the library continues to function as advertised, the test suite
+%% attempts to compile and run the example codes that demonstrate the
+%% APIs.
 
-Development of \dengo{} will be conducted in an identical manner as
-\grackle{}.  Like \grackle{}, \dengo{} is also developed using
-Mercurial and its main repo is hosted on
-BitBucket.org\footnote{\url{https://bitbucket.org/dengo-project/dengo}}.
+%% \grackle{}'s documentation is included in the source and is written in
+%% reStructuredText, which can be converted to HTML and PDF formats
+%% using the Sphinx package.  An HTML rendering of the documentation is
+%% also hosted on
+%% readthedocs.org\footnote{\url{https://grackle.readthedocs.io}},
+%% and is automatically rebuilt when changes are added to the main
+%% repository.
 
 \subsection{Provenance and Reproducibility}
 
