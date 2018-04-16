@@ -226,50 +226,58 @@ will be augmented to enable easier toggling of older reaction rates as well as
 simplified addition of new reaction rates.
 
 \noindent \textbf{Grackle: UCSD student project 1:
-  composition-dependent metal cooling tables} The goal of refactoring
-the \grackle{} source code and adding hardware acceleration support is
-to make \grackle{} an attractive landing spot for external
-contribution of new chemistry and cooling-related models resulting
-from scientific research.
-%% Examples of these include spatially constant models of the evolving UV
-%% background radiation from stars and black holes
-%% \citep[e.g.,][]{2009ApJ...703.1416F, 2012ApJ...746..125H};
-%% approximations for molecular and atomic self-shielding of external
-%% radiation \citep[e.g.,][]{2012MNRAS.425L..51W, 2013MNRAS.430.2427R};
-%% and tables of heavy element cooling rates
-%% \citep[e.g.][]{2008MNRAS.385.1443S, 2009MNRAS.393...99W}.
-These models are critical to galaxy formation and evolution
-simulations as they are simplifications of crucial processes that
-would be computationally prohibitive to calculate directly.  
-%% Too often, the 
-%% only publicly available forms of these models are the publications
-%% describing them, in which important implementation details might be
-%% omitted.
-In a survey of \grackle{} users carried out in Spring 2017, a number
-of such models were identified as features wanted by the community.
+  composition-dependent metal cooling tables}
+This project will implement the first of two model-related
+enhancements identified in the \grackle{} user survey.
 Implementing one of these features is an excellent undergraduate
 student project as it has a well-defined endpoint, requires learning
 from the scientific literature, provides experience with developing
 software for HPC, gives the student recognition within the community,
 and allows for the possibility of continued research by working with
-the new functionality.
+the new functionality. In this project, we will expand \grackle{'s}
+metal cooling tables from a single
+component model that assumes a solar abundance pattern to a
+two component system of \citet{2013MNRAS.433.3005D} consisting of
+alpha elements (from Type II SN)
+and iron-peak elements (from Type Ia SN and intermediate mass stars).
+This is a necessary enhancement for new simulations that now treat
+multiple sources of heavy elements
+\citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}, namely Type
+Ia and Type II supernovae and winds from intermediate mass stars.
 
-Following the completion of the source code refactor, PI Smith will
-supervize two such feature development projects, one each in years two
-and three.  The first of which will be adding support for
-composition-dependent heavy element cooling tables.  \grackle{'s}
-current metal cooling tables assume a solar abundance for metals,
-which has been sufficient for simulations that consider only a single
-source of metal production, i.e. Type II supernovae (SN). However, recent
-simulations \citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}
-now include metal enrichment addition sources, like Type Ia SN
-and winds from intermediate mass stars, which produce distinct abundance
-patterns and associated cooling rates.  In order to support these type
-of models in \grackle{}, we will implement the method of
-\citet{2013MNRAS.433.3005D} (updated for the latest UV backgrounds),
-which consider a two component metallicity consisting of alpha
-elements (from Type II SN) and iron-peak elements (from Type Ia SN and
-intermediate mass stars).
+%% \grackle{'s}
+%% current metal cooling tables assume a solar abundance for metals,
+%% which has been sufficient for simulations that consider only a single
+%% source of metal production, i.e. Type II supernovae (SN). However, recent
+%% simulations \citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}
+%% now include metal enrichment addition sources, like Type Ia SN
+%% and , which produce distinct abundance
+%% patterns and associated cooling rates.  In order to support these type
+%% of models in \grackle{}, we will implement the method of
+%% \citet{2013MNRAS.433.3005D} (updated for the latest UV backgrounds),
+%% which consider a two component metallicity 
+
+%%  The goal of refactoring
+%% the \grackle{} source code and adding hardware acceleration support is
+%% to make \grackle{} an attractive landing spot for external
+%% contribution of new chemistry and cooling-related models resulting
+%% from scientific research.
+%% %% Examples of these include spatially constant models of the evolving UV
+%% %% background radiation from stars and black holes
+%% %% \citep[e.g.,][]{2009ApJ...703.1416F, 2012ApJ...746..125H};
+%% %% approximations for molecular and atomic self-shielding of external
+%% %% radiation \citep[e.g.,][]{2012MNRAS.425L..51W, 2013MNRAS.430.2427R};
+%% %% and tables of heavy element cooling rates
+%% %% \citep[e.g.][]{2008MNRAS.385.1443S, 2009MNRAS.393...99W}.
+%% These models are critical to galaxy formation and evolution
+%% simulations as they are simplifications of crucial processes that
+%% would be computationally prohibitive to calculate directly.  
+%% %% Too often, the 
+%% %% only publicly available forms of these models are the publications
+%% %% describing them, in which important implementation details might be
+%% %% omitted.
+%% In a survey of \grackle{} users carried out in Spring 2017, a number
+%% of such models were identified as features wanted by the community.
 
 \subsection{Year Three: Adaptive Solvers and USCD student project 2}
 
