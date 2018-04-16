@@ -119,20 +119,14 @@ solver as a reference implementation, we will unify the two projects.
 \dengo{} accepts reaction networks, chemical species (and their
 metadata), reaction rates, and an API or implementation of an
 iterative solver, and generates templated output code.  \grackle{}
-hosts a curated set of \dengo{}-generated solvers, provides a pathway
-to 
-provides a pathway to \dengo{}-generated solver and continues to host
-the simplifying models (tabulated cooling, UV backgrounds, etc.) 
+continues to host the simplifying models (tabulated cooling, UV
+backgrounds, etc.), but also supplies a curated set of
+\dengo{}-generated solvers and provides a pathway for users to expand
+them.
 
-\begin{itemize}
-\item Flexibility for code generation
-\item Ease of construction
-\item Building on existing community API
-\end{itemize}
-
-By unifying these two projects, we will bring to \textit{existing} users of
-\grackle{} the ability to construct flexible networks that solve either a subset
-of the typical reactions or a larger superset, and that are able to utilize
-higher-order solvers for situations when reactions become particularly stiff.
-Unifying the APIs will ensure that \textit{no additional code changes} are
-necessary for existing simulation developers.
+%% By unifying these two projects, we will bring to \textit{existing} users of
+%% \grackle{} the ability to construct flexible networks that solve either a subset
+%% of the typical reactions or a larger superset, and that are able to utilize
+%% higher-order solvers for situations when reactions become particularly stiff.
+%% Unifying the APIs will ensure that \textit{no additional code changes} are
+%% necessary for existing simulation developers.
