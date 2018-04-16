@@ -10,10 +10,26 @@ literature and modifying the input parameters to interpolation tables.
 Adding a single reaction requires modifying the right-hand side
 calculation for all species that appear in that reaction.  This poses
 challenges to ensuring bookkeeping between reaction rates and species are
-correct, and poses entirely new challenges when the solver itself is
-built into the reaction network.  An example of this is the
-Gauss-Seidel update of the reaction state vector \textit{during} the
-timestep update, as is done in \grackle{}.
+correct, and poses entirely new challenges when the solver itself is built into
+the reaction network.  The two primary types of solvers used in astrophysical
+calculations are explicit (and semi-implicit) solvers and fully-implicit
+solvers, each with their (dis)advantages.  Writing an explicit solver is an
+entirely different process than writing a fully-implicit solver and so
+transferring code -- and ensuring consistent levels of optimization -- between
+solver methodologies is non-trivial.  An example of this is the Gauss-Seidel
+update of the reaction state vector \textit{during} the timestep update, as is
+done in \grackle{}.
+
+Advances in open source computer algebra systems (CAS) such as SymPy
+\citep{10.7717/peerj-cs.103} enable the construction
+of reaction rate networks that can be symbolically and numerically
+differentiated as well as output into a templated format.  For instance,
+constructing a reaction network composed of a few dozen chemical species and a
+few hundred reactions can be accomplished in only as many lines of code as is
+necessary to describe them.  These reaction networks can have Jacobians (exact
+or approximate) computed and they preserve the notion of an abstract model that
+can be instantiated into one or more different concrete representations of a
+chemical solver.
 
 %% When a reaction network requires scaling to a large number of species
 %% or a large number of reactions (particularly when the connectivity of the
@@ -22,15 +38,6 @@ timestep update, as is done in \grackle{}.
 
 %% While strictly separable from the other two components, often the solver itself
 %% is intertwined between them.
-The two primary types of solvers used in astrophysical calculations
-are explicit (and semi-implicit) solvers and fully-implicit solvers,
-each with their (dis)advantages.
-Writing an explicit solver is an entirely different process than
-writing a fully-implicit solver and so transferring code between
-solver methodologies is non-trivial.
-An added difficulty is optimizing for computational architecture considerations,
-such as SIMD instructions, memory management for interpolation tables,
-and reducing cache misses. This adds not-inconsiderable overhead for the developer.
 %% The construction of a solver, and the inherent
 %% bookkeeping, is prone to error, time-consuming, and is inflexible for simple
 %% transformations between solver methodologies; writing an explicit or
@@ -39,8 +46,6 @@ and reducing cache misses. This adds not-inconsiderable overhead for the develop
 %% non-trivial.  Furthermore, when interconnecting multiple species in non-linear,
 %% often non-trivial ways, calculation of a Jacobian requires complex and
 %% extensive differentiation.
-
-
 
 %% Generating a reaction network from this involves constructing a change vector,
 %% $\frac{\partial n_i}{\partial t}$ for all pairwise combinations and sets of
@@ -54,20 +59,6 @@ and reducing cache misses. This adds not-inconsiderable overhead for the develop
 %% change the mechanism by which the solver operates, such as changing from
 %% semi-implicit updates to a fully-implicit scheme, require full reorganization
 %% of the solver code.  
-
-Generating a reaction network from this involves constructing a change vector,
-$\frac{\partial n_i}{\partial t}$ for all pairwise combinations and sets of
-reactions.
-However, advances in open source computer algebra systems (CAS) such as SymPy
-\citep{10.7717/peerj-cs.103} enable the symbolic and computational description
-of reaction rate networks that can be symbolically and numerically
-differentiated, as well as output into a templated format.  For instance,
-constructing a reaction network composed of a few dozen chemical species and a
-few hundred reactions can be accomplished in only as many lines of code as is
-necessary to describe them.  These reaction networks can have Jacobians (exact
-or approximate) computed and they preserve the notion of an abstract model that
-can be instantiated into one or more different concrete representations of a
-chemical solver.
 
 %% At present, \grackle{} is a hand-written code, where the order of update, solver
 %% prescriptions, interpolation of rates and the timestep estimate are all

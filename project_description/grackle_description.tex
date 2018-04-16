@@ -206,8 +206,6 @@ are included in the source (see Figure \ref{fig:freefall}).
 \vspace*{-1\baselineskip}
 \end{figure}
 
-\subsection{\grackle{} Architecture}
-
 \grackle{} is built upon widely used packages in the ecosystem of
 scientific software.
 %% As a library, the aim is to provide
@@ -229,13 +227,13 @@ interface is built upon a number of widely used Python packages, including
 \yt{}\footnote{\url{http://www.numpy.org/}, \url{http://cython.org/},
   and \url{http://yt-project.org/}, respectively} \citep[][an SI2-funded
 project]{2011ApJS..192....9T}.  In
-addition, the project infrastructure relies on the following packages:
+addition, the project infrastructure relies on:
 Mercurial for version control; BitBucket.org for repository hosting;
 Sphinx for building documentation; readthedocs.org for documentation
 hosting; pytest for testing; and BitBucket Pipelines for continuous
 integration testing.
 
-\subsubsection{The Core Library}
+\subsection{The Core Library}
 \label{sec:core-library}
 
 \noindent
@@ -260,9 +258,8 @@ their thermal equilibrium values, tuning the order of species updates,
 and switching between analytical and numerical time derivatives when
 the system is near equilibrium. To account for long time-steps passed
 from the simulation code, \grackle{} iterates in ``subcycles'' over
-time-steps limited by no more than 10\% of the cooling time
-($e/\dot{e}$) and chemical time-scales ($n/\dot{n}$) for neutral H and
-for electrons.
+time-steps limited by heuristics such as cooling ($e/\dot{e}$) and chemical
+($n/\dot{n}$) time-scales.
 
 \begin{figure}[h]
 \centering
