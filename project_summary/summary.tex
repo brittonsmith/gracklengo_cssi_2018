@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyvrb}
+\usepackage{epsfig}
+\usepackage{fullpage}
+\usepackage[small,compact]{titlesec}
+\usepackage{hyperref}
+%\usepackage{times} 
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\setlength{\topmargin}{+0.0in}   %%%%%%%%% this is hacked (from +.0.1in) so that it looks right when converted.
+\setlength{\oddsidemargin}{-0.0in}
+\setlength{\evensidemargin}{-0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\bibliographystyle{apj}
+\newcommand{\apj}{ApJ}
+\newcommand{\apss}{Astrophysics and Space Science}
+\newcommand{\aj}{AJ}
+\newcommand{\apjl}{ApJL}
+\newcommand{\mnras}{MNRAS}
+\newcommand{\apjs}{ApJS}
+\newcommand{\pasp}{PASP}
+\newcommand{\pasa}{PASA}
+\newcommand{\araa}{ARA\&A}
+\newcommand{\aap}{A\&A}
+\newcommand{\aaps}{A\&AS}
+\newcommand{\pasj}{PASJ}
+\newcommand{\prd}{Phys. Rev. D}
+\newcommand{\nat}{Nature}
+\newcommand{\physrep}{Physics Reports}
+\newcommand{\etal}{et al}
+\newcommand{\grackle}{\texttt{Grackle}}
+\newcommand{\yt}{\texttt{yt}}
+\def\subsun{\mbox{$_{\odot}$}}
+\def\lesssim{\mathrel{\hbox{\rlap{\hbox{%
+ \lower4pt\hbox{$\sim$}}}\hbox{$<$}}}}
+\def\gtrsim{\mathrel{\hbox{\rlap{\hbox{%
+ \lower4pt\hbox{$\sim$}}}\hbox{$>$}}}}
+\RequirePackage{natbib}
+%\usepackage{setspace}
+\setlength{\bibsep}{0.0pt}
+
+\newenvironment{itemize*}%
+{\begin{itemize}%
+  \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+{\end{itemize}}
+
+\newenvironment{enumerate*}%
+{\begin{enumerate}%
+  \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+{\end{enumerate}}
+
+\newenvironment{description*}%
+{\begin{description}%
+  \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+{\end{description}}
+
+\begin{document}
+\thispagestyle{empty}
+
+\clearpage
+
+\clearpage
+\begin{center} 
+%\bfseries{%
+%%
+%% ENTER TITLE OF PROPOSAL BELOW THIS LINE
+{\large PROJECT SUMMARY}\\
+%%
+%%
+%}
+\end{center}
+
+\begin{flushleft}
+\noindent
+{\bf \large Overview}\\
+\grackle{} is an open-source library for computing the chemistry and
+radiative cooling in astrophysical simulations and models, with
+features that make it applicable to a wide variety of astrophysical
+topics, including star, galaxy, and black hole formation, and the
+evolution of the intergalactic medium.
+The functionality that \grackle{} provides has traditionally
+been implemented in isolated efforts by individual research groups,
+with variations that make direct comparison of results difficult.
+This type of machinery also requires frequent maintenance to
+incorporate updated chemistry rates and new models.
+\grackle{} exposes a full-featured chemistry and cooling solver
+through an API that is straightforward to implement in simulation
+codes written in C, C++, Fortran, and Python.
+As a community project, \grackle{} performs two important services: 1)
+it enables comparison and collaboration between codes through its universal API,
+and 2) it provides a means for dissemination of new methods and
+research results to the community by actively encouraging
+contributions to the code.  \grackle{}'s success to date is evidenced by its
+adoption in 14 different simulation codes.
+
+We propose to undertake a series of development projects that are
+critical to solidifying long-term community engagement in \grackle{}.
+We will perform a necessary overhaul of the core routines to increase
+modularity, to enable them to work with different solvers more easily,
+and to be more developer-friendly.  We will upgrade \grackle{}'s
+parallelism to support heterogeneous computing architectures including
+GPU and many-core systems.  Using the enhanced framework created by
+these improvements, we will then add new chemical networks that will
+broaden its applicability to include new areas of research and expand
+its user base.
+
+\noindent
+{\bf \large Intellectual Merit}\\
+\grackle{} follows an established model for community development and
+code releases that includes external review of source code changes
+through pull requests, automated testing, and extensive user and
+developer documentation.  The library exposes functionality equally to
+simulation codes written in C, C++, Fortran, and Python with an API
+that has been designed with careful consideration for maintaining
+backward compatibility.  The Python interface is enhanced with
+additional functionality for use in semi-analytic modeling.
+\grackle{}'s functionality has been applied to a broad range of
+astrophysical problems and this SSE will serve to further expand its
+reach both through targeted feature additions and by enabling
+community contribution.  The upgraded parallelism will enable
+effective utilization of next-generation computing facilities and will
+provide a model for developers as they add new features to the code.
+
+\noindent
+{\bf \large Broader Impacts}\\
+\grackle{} provides equal access to functionality that is
+necessary for many areas of research.  The Python interface's ease of
+use lowers the barrier to entry to using tools that have
+typically only been available in the context of large, complex
+simulations.  By encouraging community contribution, \grackle{} gives
+researchers a direct channel to its extensive user base, thus
+providing an avenue for dissemination of work and for forming
+collaborations.  By providing critical functionality equally to
+simulation codes that use fundamentally different techniques (i.e.,
+Eulerian, Lagrangian, and hybrid approaches), \grackle{}
+also plays a key role in cross-platform collaborations and the
+comparison of results.  This has already been demonstrated by the
+AGORA simulation comparison project, which uses \grackle{} in nine
+different simulation codes.  Finally, the project serves as an example
+of the use of best practices for software development and computing
+and provides a forum for less experienced developers to receive
+guidance and mentorship through review of pull requests and
+interaction with peers on the mailing list.
+
+\end{flushleft}
+\end{document}
