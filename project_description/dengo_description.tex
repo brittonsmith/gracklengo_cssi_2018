@@ -69,11 +69,10 @@ chemical solver.
 %% symbolically defined reaction systems.
 
 To address the limitations in \grackle{'s} flexibility, we will
-further develop the \dengo{} package, a solver construction kit based
+further develop the \dengo{} package, a solver construction kit
 designed by PI Turk. \dengo{} is built on a combination of SymPy and
 the templating library Jinja2. \dengo{} includes full reaction
-networks for primordial gas, ionization of 
-interstellar, and formation of molecules using UMIST
+networks for primordial gas, ionization of atoms, and formation of molecules using UMIST
 \citep{2013A&A...550A..36M}.  Constructing a solver using \dengo{} is done by
 choosing a collection of species to evolve, choosing the relevant chemical
 kinetic and radiative cooling equations that interlink them, and then
@@ -94,14 +93,14 @@ results show that the amount of observable oxygen in the IGM is
 significantly increased when NEQ effects are considered.
 While this is promising, the inclusion of the ionization network
 required roughly five times the computational resources, thus
-highlighting the need to further optimization with hardware
+highlighting the need for further optimization with hardware
 accelerators as discussed below in the development plan.  It is worth
 noting that the sole other attempt at a simulation with NEQ
 O \citep{2016MNRAS.460.2157O} was done by running the
 simulation to more than 80\% of completion under equilibrium first,
 highlighting the genuine difficulty of this problem.
 
-\dengo{} development has, thus far, been targetted at uses within a
+\dengo{} development has, thus far, been targeted at uses within a
 single simulation code, \enzo{}, and so its API has not yet
 stabilized.  By modifying \dengo{} to conform to \grackle{'s} API, the
 \dengo{} project can take advantage of \grackle{'s} thriving user
