@@ -18,8 +18,10 @@ important ways.  First, \grackle{} is a key component of the AGORA
 project.  Comparing nine different simulation codes over multiple
 galaxy formation problems, the AGORA project is the first
 undertaking to include such a large fraction of the galaxy formation research
-community.  An example of this cross-platform comparison enabled by
-\grackle{} is shown in Figure \ref{fig:AGORA}.  Second, \grackle{} has
+community.
+%% An example of this cross-platform comparison enabled by
+%% \grackle{} is shown in Figure \ref{fig:AGORA}.
+Second, \grackle{} has
 seen widespread adoption and use outside of participation in AGORA.
 In total, \grackle{} has been adopted by at least 14 different
 simulation codes:
@@ -33,20 +35,20 @@ Gizmo, RAMSES, SPHS, and SWIFT
 2002A&A...385..337T, 2012MNRAS.422.3037R, 2013arXiv1309.3783G,
 2016arXiv160602738S}.
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.92\textwidth]{figures/fig17.eps}
-\caption{A comparison of nine simulation codes in the AGORA project, all using
-  \grackle{}.  The panels show the probability distribution function
-  in bins of density and temperature for the gas in isolated galaxy
-  simulations.  Each simulation used an identical idealized setup,
-  prescriptions for star formation and feedback, and radiative cooling
-  provided by the \grackle{} library
-  \citep[from][]{2016ApJ...833..202K}.}
-\label{fig:AGORA}
-\end{center}
-\vspace*{-2\baselineskip}
-\end{figure}
+%% \begin{figure}[h]
+%% \begin{center}
+%% \includegraphics[width=0.92\textwidth]{figures/fig17.eps}
+%% \caption{A comparison of nine simulation codes in the AGORA project, all using
+%%   \grackle{}.  The panels show the probability distribution function
+%%   in bins of density and temperature for the gas in isolated galaxy
+%%   simulations.  Each simulation used an identical idealized setup,
+%%   prescriptions for star formation and feedback, and radiative cooling
+%%   provided by the \grackle{} library
+%%   \citep[from][]{2016ApJ...833..202K}.}
+%% \label{fig:AGORA}
+%% \end{center}
+%% \vspace*{-2\baselineskip}
+%% \end{figure}
 
 \noindent
 {\bf As an open-source project, \grackle{} plays two major roles:}
@@ -148,29 +150,39 @@ compatibility.
 high performance computing systems while maintaining an interface that
 is immediately useful to people at many different levels of
 experience.
-All of the above functionality is easily accessible to codes written
-in C, C++, and Fortran.  The source comes with compilable,
+All functionality is easily accessible to codes written
+in C, C++, and Fortran.  \grackle{} comes with compilable,
 runnable examples in each of the above languages demonstrating all
-available functions.  An additional Python module, \texttt{pygrackle},
-exposes the main functionality as well as helper functions useful in
-semi-analytic models, such as computing the
-thermal evolution of a parcel of gas at constant density or undergoing
-free-fall collapse.  Sample figure-producing scripts
-are included in the source (see Figure \ref{fig:freefall}).
-%\subsubsection{\texttt{pygrackle}: The Python Interface}
+available functions.  A Python module, \texttt{pygrackle},
+exposes the main functionality and helper functions useful in
+semi-analytic models \citep[e.g.,][]{2016ApJ...820...71C,
+  2016MNRAS.459.4209A}, debugging, and education.  Sample
+figure-producing scripts are included in the source (see Figure
+\ref{fig:freefall}). \texttt{pygrackle's}
+dependencies (\texttt{NumPy}, \texttt{Cython}, and \yt{}) are
+installable by Python package managers, \texttt{Conda}
+and \texttt{pip}.
+%\subsection{\texttt{pygrackle}: The Python Interface}
+%% \texttt{pygrackle} provides a lower barrier to
+%% entry for accessing \grackle{}'s functionality and thus can be
+%% useful for semi-analytical models \citep[e.g.,][]{2016ApJ...820...71C,
+%% 2016MNRAS.459.4209A}, debugging, and education.  The
+%% \texttt{pygrackle} package is distributed with the \grackle{} source
+%% and can be installed once the library has been compiled.  The
+%% additional Python packages on which \texttt{pygrackle} is built
+%% (\texttt{NumPy}, \texttt{Cython}, and \yt{}) are
+%% installable by popular Python package managers, like \texttt{Conda}
+%% and \texttt{pip}.
 
-%% The field arrays use an enhanced \texttt{NumPy} array,
-%% provided by \yt{}, that endows values with symbolically expressable
-%% and convertible units.  For example, an array, \texttt{x}, of densities in units of
+%% \texttt{pygrackle} uses an Object-Oriented design centered around
+%% \texttt{FluidContainer} objects with the code \grackle{} functions
+%% accessible as class methods. The \texttt{FluidContainer} stores field
+%% values as \texttt{NumPy} arrays with enhanced functionality, provided
+%% by \yt{}, that endows values with symbolically expressable and
+%% convertible units.  For example, an array, \texttt{x}, of densities in units of
 %% g/cm$^{3}$, can undergo unit conversion by doing:
-%% \texttt{x.to("Msun/kpc**3")}.  The core \grackle{} functions exist as
-%% class methods hanging off the \texttt{FluidContainer} object.
-%% For example, to calculate the cooling time for a \texttt{FluidContainer}
-%% object, \texttt{fc}, the syntax is
-%% \texttt{fc.calculate\_cooling\_time()}.
-%% The interface layer
-%% connecting the high-level Python data structures to \grackle{}'s C
-%% functions is written in \texttt{Cython}.
+%% \texttt{x.to("Msun/kpc**3")}.
+
 
 %% To maintain a single function signature,
 %% regardless of chosen settings, field arrays are attached to pointers
@@ -374,29 +386,6 @@ the total cost.
 %% This parallelism can also help pure-MPI codes
 %% where memory requirements force the use of fewer than the total number
 %% of cores on a node.
-
-
-\subsection{\texttt{pygrackle}: The Python Interface}
-
-\texttt{pygrackle} provides a lower barrier to
-entry for accessing \grackle{}'s functionality and thus can be
-useful for semi-analytical models \citep[e.g.,][]{2016ApJ...820...71C,
-2016MNRAS.459.4209A}, debugging, and education.  The
-\texttt{pygrackle} package is distributed with the \grackle{} source
-and can be installed once the library has been compiled.  The
-additional Python packages on which \texttt{pygrackle} is built
-(\texttt{NumPy}, \texttt{Cython}, and \yt{}) are
-installable by popular Python package managers, like \texttt{Conda}
-and \texttt{pip}.
-
-\texttt{pygrackle} uses an Object-Oriented design centered around
-\texttt{FluidContainer} objects with the code \grackle{} functions
-accessible as class methods. The \texttt{FluidContainer} stores field
-values as \texttt{NumPy} arrays with enhanced functionality, provided
-by \yt{}, that endows values with symbolically expressable and
-convertible units.  For example, an array, \texttt{x}, of densities in units of
-g/cm$^{3}$, can undergo unit conversion by doing:
-\texttt{x.to("Msun/kpc**3")}.
 
 \subsection{Community and Usage Metrics}
 
