@@ -42,8 +42,7 @@ solvers with feature parity to \grackle{}.  By the end of PY2, \grackle{} will
 be generated using \dengo{} for code generation, and by the end of PY3 the
 hybrid explicit/implicit solver will be functional with hardware acceleration.
 
-\subsection{Year One: \grackle{}: source code refactor and hardware
-  acceleration; \dengo{}: explicit solver generation}
+\subsection{Year One: hardware acceleration and commencement of project unification}
 
 The three objectives for year one are 1) to make \grackle{} subsantially
 easier to modify and, hence, more inviting to new contributions, 2)
@@ -190,8 +189,8 @@ Furthermore, as this work will be concurrent with the \grackle{} hardware
 acceleration efforts, the two will be conducted in conjunction to ensure that
 the explicit solver generated fully meets the standards set by \grackle{}.
 
-\subsection{Year Two: \grackle{}: USCD student project 1; \dengo{}:
-  hardware acceleration and reaction rate provenance}
+\subsection{Year Two: hardware acceleration, reaction rate provenance,
+  and model expansion}
 
 \noindent \textbf{Dengo: reaction rate provenance}
 Reaction rate coefficients provide the key system for interconnection of a
@@ -216,52 +215,60 @@ will be augmented to enable easier toggling of older reaction rates as well as
 simplified addition of new reaction rates.
 
 \noindent \textbf{Grackle: UCSD student project 1:
-  composition-dependent metal cooling tables} The goal of refactoring
-the \grackle{} source code and adding hardware acceleration support is
-to make \grackle{} an attractive landing spot for external
-contribution of new chemistry and cooling-related models resulting
-from scientific research.
-%% Examples of these include spatially constant models of the evolving UV
-%% background radiation from stars and black holes
-%% \citep[e.g.,][]{2009ApJ...703.1416F, 2012ApJ...746..125H};
-%% approximations for molecular and atomic self-shielding of external
-%% radiation \citep[e.g.,][]{2012MNRAS.425L..51W, 2013MNRAS.430.2427R};
-%% and tables of heavy element cooling rates
-%% \citep[e.g.][]{2008MNRAS.385.1443S, 2009MNRAS.393...99W}.
-These models are critical to galaxy formation and evolution
-simulations as they are simplifications of crucial processes that
-would be computationally prohibitive to calculate directly.  
-%% Too often, the 
-%% only publicly available forms of these models are the publications
-%% describing them, in which important implementation details might be
-%% omitted.
-In a survey of \grackle{} users carried out in Spring 2017, a number
-of such models were identified as features wanted by the community.
+  composition-dependent metal cooling tables}
+This project will implement the first of two model-related
+enhancements identified in the \grackle{} user survey.
 Implementing one of these features is an excellent undergraduate
 student project as it has a well-defined endpoint, requires learning
 from the scientific literature, provides experience with developing
 software for HPC, gives the student recognition within the community,
 and allows for the possibility of continued research by working with
-the new functionality.
+the new functionality. In this project, we will expand \grackle{'s}
+metal cooling tables from a single
+component model that assumes a solar abundance pattern to a
+two component system of \citet{2013MNRAS.433.3005D} consisting of
+alpha elements (from Type II SN)
+and iron-peak elements (from Type Ia SN and intermediate mass stars).
+This is a necessary enhancement for new simulations that now treat
+multiple sources of heavy elements
+\citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}, namely Type
+Ia and Type II supernovae and winds from intermediate mass stars.
 
-Following the completion of the source code refactor, PI Smith will
-supervize two such feature development projects, one each in years two
-and three.  The first of which will be adding support for
-composition-dependent heavy element cooling tables.  \grackle{'s}
-current metal cooling tables assume a solar abundance for metals,
-which has been sufficient for simulations that consider only a single
-source of metal production, i.e. Type II supernovae (SN). However, recent
-simulations \citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}
-now include metal enrichment addition sources, like Type Ia SN
-and winds from intermediate mass stars, which produce distinct abundance
-patterns and associated cooling rates.  In order to support these type
-of models in \grackle{}, we will implement the method of
-\citet{2013MNRAS.433.3005D} (updated for the latest UV backgrounds),
-which consider a two component metallicity consisting of alpha
-elements (from Type II SN) and iron-peak elements (from Type Ia SN and
-intermediate mass stars).
+%% \grackle{'s}
+%% current metal cooling tables assume a solar abundance for metals,
+%% which has been sufficient for simulations that consider only a single
+%% source of metal production, i.e. Type II supernovae (SN). However, recent
+%% simulations \citep[e.g.,][]{2014MNRAS.444.1518V, 2015MNRAS.446..521S}
+%% now include metal enrichment addition sources, like Type Ia SN
+%% and , which produce distinct abundance
+%% patterns and associated cooling rates.  In order to support these type
+%% of models in \grackle{}, we will implement the method of
+%% \citet{2013MNRAS.433.3005D} (updated for the latest UV backgrounds),
+%% which consider a two component metallicity 
 
-\subsection{Year Three: Adaptive Solvers and USCD student project 2}
+%%  The goal of refactoring
+%% the \grackle{} source code and adding hardware acceleration support is
+%% to make \grackle{} an attractive landing spot for external
+%% contribution of new chemistry and cooling-related models resulting
+%% from scientific research.
+%% %% Examples of these include spatially constant models of the evolving UV
+%% %% background radiation from stars and black holes
+%% %% \citep[e.g.,][]{2009ApJ...703.1416F, 2012ApJ...746..125H};
+%% %% approximations for molecular and atomic self-shielding of external
+%% %% radiation \citep[e.g.,][]{2012MNRAS.425L..51W, 2013MNRAS.430.2427R};
+%% %% and tables of heavy element cooling rates
+%% %% \citep[e.g.][]{2008MNRAS.385.1443S, 2009MNRAS.393...99W}.
+%% These models are critical to galaxy formation and evolution
+%% simulations as they are simplifications of crucial processes that
+%% would be computationally prohibitive to calculate directly.  
+%% %% Too often, the 
+%% %% only publicly available forms of these models are the publications
+%% %% describing them, in which important implementation details might be
+%% %% omitted.
+%% In a survey of \grackle{} users carried out in Spring 2017, a number
+%% of such models were identified as features wanted by the community.
+
+\subsection{Year Three: Adaptive Solvers and model expansion}
 
 \noindent \textbf{Adaptive solver}
 Simulations that span many orders of magnitude in density, straddle different
@@ -308,15 +315,15 @@ overhead of creating a full reimplementation.
   tables for radiation hydrodynamics}
 Due to the expense of radiation transport, simulations have
 traditionally modelled the radiative feedback from stars with the
-injection of additional thermal energy into the fluid.  However,
-increasingly simulations have been able to include radiation
+injection of additional thermal energy into the fluid.  Increasingly
+simulations have been able to include radiation
 hydrodynamics \citep{2012MNRAS.427..311W, Xu_2013, Wise_2014,
 2015ApJ...807L..12O}, which has allowed for more accurate treatments of the
-radiative component of stellar feedback.  However, these simulations
+radiative component of stellar feedback.  These simulations
 still only account for the radiative heating of primordial elements, H
 and He, and heating of the metals has been notably ignored, which can
 lead to significant over-cooling \citep{2011MNRAS.413..190T,
-  2012MNRAS.427..311W}.  The purpose of this project will be to create
+  2012MNRAS.427..311W}.  This project will create
 metal cooling tables specifically designed for this new generation of
 radiation hydrodynamics simulations.  We will use the \texttt{Cloudy}
 photoionization code to produce cooling tables resulting from the
