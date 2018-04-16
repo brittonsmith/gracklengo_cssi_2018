@@ -35,6 +35,7 @@
 \newcommand{\physrep}{Physics Reports}
 \newcommand{\etal}{et al}
 \newcommand{\grackle}{\texttt{Grackle}}
+\newcommand{\dengo}{\texttt{Dengo}}
 \newcommand{\yt}{\texttt{yt}}
 \def\subsun{\mbox{$_{\odot}$}}
 \def\lesssim{\mathrel{\hbox{\rlap{\hbox{%
@@ -99,19 +100,21 @@ As a community project, \grackle{} performs two important services: 1)
 it enables comparison and collaboration between codes through its universal API,
 and 2) it provides a means for dissemination of new methods and
 research results to the community by actively encouraging
-contributions to the code.  \grackle{}'s success to date is evidenced by its
-adoption in 14 different simulation codes.
+contributions to the code.
+%% \grackle{}'s success to date is evidenced by its
+%% adoption in 14 different simulation codes.
 
-We propose to undertake a series of development projects that are
-critical to solidifying long-term community engagement in \grackle{}.
-We will perform a necessary overhaul of the core routines to increase
-modularity, to enable them to work with different solvers more easily,
-and to be more developer-friendly.  We will upgrade \grackle{}'s
-parallelism to support heterogeneous computing architectures including
-GPU and many-core systems.  Using the enhanced framework created by
-these improvements, we will then add new chemical networks that will
-broaden its applicability to include new areas of research and expand
-its user base.
+This proposal seeks to solidify long-term community engagement in
+\grackle{} by overhauling the internal machinery to ease external
+contribution, adding support for hardware acceleration, and
+implementing additional functionality requested by the users. To
+overcome the increasing difficulty and error rate of implementing more
+complex solver, we will integrate \grackle{} with a new package,
+\dengo{}, that can automatically generate implicit solvers based on a
+symbollically described network. We will upgrade \dengo{} to support
+generation of explicit solvers, like \grackle{}, with hardware
+acceleration support and ultimately generate an adaptive solver
+capable of situation-aware method switching.
 
 \noindent
 {\bf \large Intellectual Merit}\\
@@ -121,14 +124,22 @@ through pull requests, automated testing, and extensive user and
 developer documentation.  The library exposes functionality equally to
 simulation codes written in C, C++, Fortran, and Python with an API
 that has been designed with careful consideration for maintaining
-backward compatibility.  The Python interface is enhanced with
-additional functionality for use in semi-analytic modeling.
-\grackle{}'s functionality has been applied to a broad range of
-astrophysical problems and this SSE will serve to further expand its
-reach both through targeted feature additions and by enabling
-community contribution.  The upgraded parallelism will enable
-effective utilization of next-generation computing facilities and will
-provide a model for developers as they add new features to the code.
+backward compatibility.  Integration with the \dengo{} solver
+generation code will allow for the construction of significantly more
+complex chemical networks, opening up new applications in star and
+planet formation, where observational data is outpacing simulations.
+The functionality that will result from this award will be designed to
+take advantage of modern hardware acceleration strategies so as to
+make effective use of next-generation computing facilities.
+
+%% The Python interface is enhanced with
+%% additional functionality for use in semi-analytic modeling.
+%% \grackle{}'s functionality has been applied to a broad range of
+%% astrophysical problems and the proposed work will serve to further expand its
+%% reach both through targeted feature additions and by enabling
+%% community contribution.  The upgraded parallelism will enable
+%% effective utilization of next-generation computing facilities and will
+%% provide a model for developers as they add new features to the code.
 
 \noindent
 {\bf \large Broader Impacts}\\
@@ -145,11 +156,23 @@ Eulerian, Lagrangian, and hybrid approaches), \grackle{}
 also plays a key role in cross-platform collaborations and the
 comparison of results.  This has already been demonstrated by the
 AGORA simulation comparison project, which uses \grackle{} in nine
-different simulation codes.  Finally, the project serves as an example
-of the use of best practices for software development and computing
-and provides a forum for less experienced developers to receive
-guidance and mentorship through review of pull requests and
-interaction with peers on the mailing list.
+different simulation codes.  Integration of the \dengo{} solver
+generation package will allow for the implementation of much more
+complex networks, expanding \grackle{'s} user base and providing a
+means of accessing published networks with no publicly available
+code.
+
+%% As a well-tested, thoroughly documented library with a well-designed
+%% structure and clear API, \grackle{} also provides an example of the
+%% use best practices for software development and computing.  This is
+%% furthered by the guidance and mentorship that less experienced
+%% developers receive through reviews of Pull Requests and
+%% advice on the mailing list.  These skills can be applied far
+%% beyond computational astrophysics, in other sciences and industry.  Integration
+%% with the technologies underpinning \dengo{}, such as jinja2, sympy and ODE
+%% solver systems, will help to integrate researchers into a modern software stack
+%% that is being used across disciplines, from software engineering and web
+%% development to data science and theoretical mathematics.
 
 \end{flushleft}
 \end{document}
