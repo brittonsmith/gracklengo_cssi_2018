@@ -11,8 +11,7 @@ Lagrangian (particles), or a hybrid (e.g., moving mesh) with
 application programming interfaces (APIs)
 existing for codes written in C, C++, Fortran, and Python.  The
 physical processes covered by the solver make it applicable to a broad
-range of astrophysical topics, including star and galaxy formation, the
-evolution of the intergalactic medium, and galaxy clusters.  Among
+range of astrophysical topics.  Among
 other metrics, the utility of \grackle{} can be demonstrated in two
 important ways.  First, \grackle{} is a key component of the AGORA
 \citep{2014ApJS..210...14K, 2016ApJ...833..202K} simulation comparison
@@ -61,20 +60,19 @@ and open-source software best practices, the widely adopted API serves
 as a conduit for dissemination of new methods and research results to
 the community.
 \end{enumerate}
-However, for \grackle{} to continue to be a useful resource, key
-development projects must be undertaken to ensure that the code is
-more inviting to new contributors, does not become a bottleneck
-for effective utilization of next-generation computing facilities, 
+However, for \grackle{} to continue to be a useful resource, we must
+ensure that the code is more inviting to new contributors, does not
+become a performance bottleneck on next-generation computing facilities, 
 and is flexible enough to be adapted to new areas of research.
-The purpose of this CSSI Software Elements proposal is to support a
-series of specific infrastructure and feature development tasks
-necessary to keep up with the demands of current users, broaden
-applicability to new domains and user bases, and to make \grackle{} a
-self-sustaining community project by the end of the 
-three-year grant period.  While \grackle{} is developed completely openly, and
-is thus in a continuous state of development release, the proposed tasks and their order of
-completion have been designed to yield regular major stable releases at
-the end of each year.
+The purpose of this proposal is to support a
+series of development tasks necessary to keep up with the demands of
+current users, broaden
+applicability, and to make \grackle{} a
+self-sustaining community project by the grant period's end.  While
+\grackle{} is developed completely openly, and
+is thus in a continuous state of development release, the proposed
+tasks and their order of completion have been designed to yield
+regular major stable releases at the end of each year.
 %% The proposed tasks and their order of
 %% completion have been designed to incrementally make the code more
 %% attractive to external contribution and adoption by a wider audience.
@@ -88,10 +86,9 @@ cooling with an API that is designed to minimize backward
 compatibility issues and is straightforward to implement in simulation
 codes written in C, C++, Fortran, and Python.  All functionality is
 parallelized with OpenMP and can be used in hybrid MPI/OpenMP
-frameworks.  To aid in semi-analytical
-modeling and debugging of new features, it also includes a Python
-interface with additional functionality.  Below, we detail the
-features included and the functions provided to the user.
+frameworks.
+%% The Python interface includes additional features to aid
+%% in semi-analytical modeling and debugging.
 
 \grackle{} provides a non-equilibrium primordial chemistry solver for
 atomic and molecular species of H, D, and He, including H$_{2}$
@@ -117,31 +114,63 @@ and \citet{2012ApJ...746..125H}, in order to mimic the effects of
 reionization.  For radiative transfer codes or simulation codes that
 support radiation hydrodynamics, \grackle{} also allows the user to supply
 photo-ionization and photo-heating rates for each computational
-element.  Finally, arrays of arbitrary specific and volumetric heating
+element.  Arrays of arbitrary specific and volumetric heating
 rates may be supplied to account for heating from stellar feedback
-models and additional radiation sources.  Between these different models and
-phenomena, nearly the entire collection of relevant radiative processes in
-astrophysical plasmas are tracked and accounted for in \grackle{}.
+models and additional radiation sources.
+%% Between these different models and
+%% phenomena, nearly the entire collection of relevant radiative processes in
+%% astrophysical plasmas are tracked and accounted for in \grackle{}.
 
-The \grackle{} library exposes five primary functions useful to a
-hydrodynamic simulation: 1) \texttt{solve\_chemistry} for iterating
-the chemistry network and updating the species densities and internal
-energy over a given time-step, and 2)
-\texttt{calculate\_cooling\_time}, 3) \texttt{calculate\_pressure}, 4)
-\texttt{calculate\_temperature}, and 5) \texttt{calculate\_gamma} for
-computing the instantaneous cooling time, thermal pressure,
-temperature, and ratio of specific heats, respectively.  Most of the
+The \grackle{} library exposes a series of functions useful to a
+hydrodynamic simulation, such as evolving the chemistry network over a
+time-step and calculating the instantaneous cooling time.
+%% : 1) \texttt{solve\_chemistry} for iterating
+%% the chemistry network and updating the species densities and internal
+%% energy over a given time-step, and 2)
+%% \texttt{calculate\_cooling\_time}, 3) \texttt{calculate\_pressure}, 4)
+%% \texttt{calculate\_temperature}, and 5) \texttt{calculate\_gamma} for
+%% computing the instantaneous cooling time, thermal pressure,
+%% temperature, and ratio of specific heats, respectively.
+Most of the
 code's behavior is controlled by run-time parameters stored within a C
 \texttt{struct} that is accessible from the main \grackle{} header
 file.  The solver can be run with varying levels of sophistication,
 including fully tabulated cooling, atomic chemistry only (6-species,
 H, H$^{+}$, He, He$^{+}$, He$^{++}$, e$^{-}$), and additional tiers of
 molecular chemistry (9-species adding H$_{2}$, H$_{2}^{+}$, H$^{-}$
-and 12-species adding D, D$^{+}$, and HD).  Each of these, and other
-optional features, requires a different number of fields to be carried
-by the simulation code.  This functionality is exposed through
-an API that has been designed to minimize the possibility of future
-development breaking backward compatibility.
+and 12-species adding D, D$^{+}$, and HD).  Each of these requires a
+different number of fields to be carried by the simulation code.  This
+functionality is exposed through an API that has been designed to
+minimize the possibility of future development breaking backward
+compatibility.
+
+\grackle{} has been designed to maximize scientific productivity on
+high performance computing systems while maintaining an interface that
+is immediately useful to people at many different levels of
+experience.
+All of the above functionality is easily accessible to codes written
+in C, C++, and Fortran.  The source comes with compilable,
+runnable examples in each of the above languages demonstrating all
+available functions.  An additional Python module, \texttt{pygrackle},
+exposes the main functionality as well as helper functions useful in
+semi-analytic models, such as computing the
+thermal evolution of a parcel of gas at constant density or undergoing
+free-fall collapse.  Sample figure-producing scripts
+are included in the source (see Figure \ref{fig:evolve}).
+%\subsubsection{\texttt{pygrackle}: The Python Interface}
+
+%% The field arrays use an enhanced \texttt{NumPy} array,
+%% provided by \yt{}, that endows values with symbolically expressable
+%% and convertible units.  For example, an array, \texttt{x}, of densities in units of
+%% g/cm$^{3}$, can undergo unit conversion by doing:
+%% \texttt{x.to("Msun/kpc**3")}.  The core \grackle{} functions exist as
+%% class methods hanging off the \texttt{FluidContainer} object.
+%% For example, to calculate the cooling time for a \texttt{FluidContainer}
+%% object, \texttt{fc}, the syntax is
+%% \texttt{fc.calculate\_cooling\_time()}.
+%% The interface layer
+%% connecting the high-level Python data structures to \grackle{}'s C
+%% functions is written in \texttt{Cython}.
 
 %% To maintain a single function signature,
 %% regardless of chosen settings, field arrays are attached to pointers
@@ -166,33 +195,21 @@ development breaking backward compatibility.
   \caption{Free-fall collapse model (\texttt{freefall.py}).}
   \label{fig:freefall}
 \end{subfigure}%
+\vspace*{-0.5\baselineskip}
 \caption{Output from sample \texttt{pygrackle} scripts included in the \grackle{}
   source.}
 \label{fig:evolve}
 \vspace*{-1\baselineskip}
 \end{figure}
 
-\grackle{} has been designed to maximize scientific productivity on
-high performance computing systems while maintaining an interface that
-is immediately useful to people at many different levels of
-experience.
-All of the above functionality is easily accessible to codes written
-in C, C++, and Fortran.  The \grackle{} source comes with compilable,
-runnable examples in each of the above languages demonstrating all
-available functions.  In addition, a Python module, \texttt{pygrackle},
-is provided, exposing the main functionality as well as additional helper
-functions useful in semi-analytic models, such as computing the
-thermal evolution of a parcel of gas at constant density or undergoing
-free-fall collapse.  Sample Python scripts are included in the source,
-the running of which results in a figure of merit (shown in Figure
-\ref{fig:evolve}).
-
 \subsection{\grackle{} Architecture}
 
 \grackle{} is built upon widely used packages in the ecosystem of
-scientific software.  As a library, the aim is to provide
-functionality to the most commonly used programming languages in
-scientific computing, namely, C, C++, Fortran, and Python.  The core
+scientific software.
+%% As a library, the aim is to provide
+%% functionality to the most commonly used programming languages in
+%% scientific computing, namely, C, C++, Fortran, and Python.
+The core
 library is written in a combination of C and Fortran with the strategy
 of using Fortran for the computationally expensive internal machinery
 and C for user-facing functions and data storage.  The single
@@ -270,10 +287,11 @@ for electrons.
     $64^3$ cells.}
   \label{fig:openmp}
 \end{subfigure}%
+\vspace*{-0.5\baselineskip}
 \caption{Serial performance (left) and OpenMP efficiency of
   \grackle{'s} solvers \citep[from][]{2017MNRAS.466.2217S}.}
 \label{fig:performance}
-\vspace*{-1\baselineskip}
+\vspace*{-0.5\baselineskip}
 \end{figure}
 
 In addition to the primordial chemistry and cooling, the contribution
@@ -351,13 +369,15 @@ threads for fluid container sizes from 4$^{3}$ to
 64$^{3}$.  At 16$^{3}$ elements, the efficiency is 60-90\%
 for all computationally expensive routines.  The four routines that
 show relatively poor efficiency are very inexpensive and so contribute negligibly to
-the total cost.  This parallelism can also help pure-MPI codes
-where memory requirements force the use of fewer than the total number
-of cores on a node.
+the total cost.
+%% This parallelism can also help pure-MPI codes
+%% where memory requirements force the use of fewer than the total number
+%% of cores on a node.
 
-\subsubsection{\texttt{pygrackle}: The Python Interface}
 
-The Python interface, \texttt{pygrackle}, provides a lower barrier to
+\subsection{\texttt{pygrackle}: The Python Interface}
+
+\texttt{pygrackle} provides a lower barrier to
 entry for accessing \grackle{}'s functionality and thus can be
 useful for semi-analytical models \citep[e.g.,][]{2016ApJ...820...71C,
 2016MNRAS.459.4209A}, debugging, and education.  The
@@ -369,21 +389,13 @@ installable by popular Python package managers, like \texttt{Conda}
 and \texttt{pip}.
 
 \texttt{pygrackle} uses an Object-Oriented design centered around
-\texttt{FluidContainer} objects.  Analogous to the C \texttt{struct}
-by which fields are passed to the \grackle{} functions, the
-\texttt{FluidContainer} stores field values as \texttt{NumPy}
-arrays.  The field arrays use an enhanced \texttt{NumPy} array,
-provided by \yt{}, that endows values with symbollically expressable
-and convertible units.  For example, an array, \texttt{x}, of densities in units of
+\texttt{FluidContainer} objects with the code \grackle{} functions
+accessible as class methods. The \texttt{FluidContainer} stores field
+values as \texttt{NumPy} arrays with enhanced functionality, provided
+by \yt{}, that endows values with symbolically expressable and
+convertible units.  For example, an array, \texttt{x}, of densities in units of
 g/cm$^{3}$, can undergo unit conversion by doing:
-\texttt{x.to("Msun/kpc**3")}.  The core \grackle{} functions exist as
-class methods hanging off the \texttt{FluidContainer} object.
-%% For example, to calculate the cooling time for a \texttt{FluidContainer}
-%% object, \texttt{fc}, the syntax is
-%% \texttt{fc.calculate\_cooling\_time()}.
-%% The interface layer
-%% connecting the high-level Python data structures to \grackle{}'s C
-%% functions is written in \texttt{Cython}.
+\texttt{x.to("Msun/kpc**3")}.
 
 \subsection{Community and Usage Metrics}
 
@@ -426,7 +438,7 @@ received commits from 16 different contributors and has had several different
 \subsection{Future Challenges}
 
 The strength of the \grackle{} community is a testament to the
-project's ability to meet the current needs of its users.  However,
+project's ability to meet the \textit{current} needs of its users.  However,
 those needs will continue to evolve as the scientific frontier
 advances and simulations increase in sophistication.  In order to
 prioritize future development, a survey of \grackle{} users was
