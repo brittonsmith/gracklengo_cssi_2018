@@ -203,25 +203,6 @@ necessary features (such as detailed reaction-update ordering) and optimized.
 
 \noindent \textbf{Dengo: hardware acceleration}
 
-Figure DENGOFIGURE displays a sample application of \dengo{}, where
-collaborator Devin Silvia used \dengo{} to generate a network for solving
-the ionization states of atomic oxygen.  The network was coupled to
-the \enzo{} simulation code to run a cosmological simulation of a 25
-Mpc/h box with 256$^{3}$ grid cells and dark matter particles.  The
-simulation was designed to study the observable signatures of the gas
-between galaxies, known as the intergalactic medium (IGM).  This
-figure shows that the amount of observable oxygen in the IGM is
-significantly increased when non-equilibrium effects are considered.
-However, this study was limited to relatively small simulations due to
-the cost of the implicit network, resulting in a roughly 5x slowdown
-from the equilibrium simulation.  With \dengo{'s} implicit solvers
-taking advantage of both computing the RHS on GPUs and utilizing GPU-enabled
-solvers, collaborator Silvia will continue to this study with higher resolution
-simulations.  Similar simulations attempting to study non-equilibrium oxygen in
-the IGM have only succeeded by running the simulation to more than 80\% of
-completion before activating the non-equilibrium network
-\citep{2016MNRAS.460.2157O}.
-
 \noindent \textbf{Dengo: reaction rate provenance}
 
 Reaction rate coefficients provide the key system for interconnection of a

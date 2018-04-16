@@ -1,54 +1,64 @@
 \section{\dengo{}: Solver Generation}
 
 A computational solver for chemical kinetic rate equations is the synthesis of
-three primary components: 1) a set of reactions and their affiliated species,
+three components: 1) a set of reactions and their affiliated species,
 2) a collection of reaction rate coefficients and 3) the mechanism of updating
 the state vector from one time to a future time.  Ensuring that a collection of
 reaction rate coefficients is up to date with current theoretical or
 experimental values is straightforward; this requires tracking changes in the
 literature and modifying the input parameters to interpolation tables.
-
-When a reaction network requires scaling to a large number of species
-or a large number of reactions (particularly when the connectivity of the
-network is high) the complexity of modifying this reaction network increases
-rapidly.  Adding a single reaction requires modifying the right-hand side
+Adding a single reaction requires modifying the right-hand side
 calculation for all species that appear in that reaction.  This poses
 challenges to ensuring bookkeeping between reaction rates and species are
-correct -- which is a tedious but tractable issue -- but poses entirely new
-challenges when the solver itself is built into the reaction network.  This may
-be the case, for instance, when conducting a Gauss-Seidel update of the
-reaction state vector \textit{during} the timestep update, as is done in
-\grackle{}.
+correct, and poses entirely new challenges when the solver itself is
+built into the reaction network.  An example of this is the
+Gauss-Seidel update of the reaction state vector \textit{during} the
+timestep update, as is done in \grackle{}.
 
-While strictly separable from the other two components, often the solver itself
-is intertwined between them.  The two primary types of solvers used in
-astrophysical calculations are explicit (and semi-explicit) solvers  and
-fully-implicit solvers; the latter are typically regarded as considerably
-slower than the former.
+%% When a reaction network requires scaling to a large number of species
+%% or a large number of reactions (particularly when the connectivity of the
+%% network is high) the complexity of modifying this reaction network increases
+%% rapidly.
 
-The construction of a solver, and the inherent
-bookkeeping, is prone to error, time-consuming, and is inflexible for simple
-transformations between solver methodologies; writing an explicit or
-semi-implicit solver is an entirely different process than writing a
-fully-implicit solver, and the mixture of the model with the implementation is
-non-trivial.  Furthermore, when interconnecting multiple species in non-linear,
-often non-trivial ways, calculation of a Jacobian requires complex and
-extensive differentiation.
+%% While strictly separable from the other two components, often the solver itself
+%% is intertwined between them.
+The two primary types of solvers used in astrophysical calculations
+are explicit (and semi-implicit) solvers and fully-implicit solvers,
+each with their (dis)advantages.
+Writing an explicit solver is an entirely different process than
+writing a fully-implicit solver and so transferring code between
+solver methodologies is non-trivial.
+An added difficulty is optimizing for computational architecture considerations,
+such as SIMD instructions, memory management for interpolation tables,
+and reducing cache misses. This adds not-inconsiderable overhead for the developer.
+%% The construction of a solver, and the inherent
+%% bookkeeping, is prone to error, time-consuming, and is inflexible for simple
+%% transformations between solver methodologies; writing an explicit or
+%% semi-implicit solver is an entirely different process than writing a
+%% fully-implicit solver, and the mixture of the model with the implementation is
+%% non-trivial.  Furthermore, when interconnecting multiple species in non-linear,
+%% often non-trivial ways, calculation of a Jacobian requires complex and
+%% extensive differentiation.
+
+
+
+%% Generating a reaction network from this involves constructing a change vector,
+%% $\frac{\partial n_i}{\partial t}$ for all pairwise combinations and sets of
+%% reactions.  From the perspective of implementation, this requires considerable
+%% bookkeeping for each additional species and each additional reaction.  For
+%% example, adding a single reaction rate that operates on two species requires
+%% updating the species change vectors for each of those two species; when
+%% optimizing for computational architectures -- such as SIMD instructions, memory
+%% management for interpolation tables, and reducing cache misses -- this adds
+%% not-inconsiderable overhead for the developer.  Furthermore, operations that
+%% change the mechanism by which the solver operates, such as changing from
+%% semi-implicit updates to a fully-implicit scheme, require full reorganization
+%% of the solver code.  
 
 Generating a reaction network from this involves constructing a change vector,
 $\frac{\partial n_i}{\partial t}$ for all pairwise combinations and sets of
-reactions.  From the perspective of implementation, this requires considerable
-bookkeeping for each additional species and each additional reaction.  For
-example, adding a single reaction rate that operates on two species requires
-updating the species change vectors for each of those two species; when
-optimizing for computational architectures -- such as SIMD instructions, memory
-management for interpolation tables, and reducing cache misses -- this adds
-not-inconsiderable overhead for the developer.  Furthermore, operations that
-change the mechanism by which the solver operates, such as changing from
-semi-implicit updates to a fully-implicit scheme, require full reorganization
-of the solver code.  
-
-Advances in open source computer algebra systems (CAS) such as SymPy
+reactions.
+However, advances in open source computer algebra systems (CAS) such as SymPy
 \citep{10.7717/peerj-cs.103} enable the symbolic and computational description
 of reaction rate networks that can be symbolically and numerically
 differentiated, as well as output into a templated format.  For instance,
@@ -59,36 +69,60 @@ or approximate) computed and they preserve the notion of an abstract model that
 can be instantiated into one or more different concrete representations of a
 chemical solver.
 
-At present, \grackle{} is a hand-written code, where the order of update, solver
-prescriptions, interpolation of rates and the timestep estimate are all
-intertwined with each other.  This reduces its overall flexibility, but it does
-provide an opportunity for fine-grained and situation-aware optimization such
-as update ordering.  However, it does not provide the flexibility, automated
-bookkeeping and solver interoperability as would be provided through alternate,
-symbolically defined reaction systems.
+%% At present, \grackle{} is a hand-written code, where the order of update, solver
+%% prescriptions, interpolation of rates and the timestep estimate are all
+%% intertwined with each other.  This reduces its overall flexibility, but it does
+%% provide an opportunity for fine-grained and situation-aware optimization such
+%% as update ordering.  However, it does not provide the flexibility, automated
+%% bookkeeping and solver interoperability as would be provided through alternate,
+%% symbolically defined reaction systems.
 
-To address these limitations, we will further develop the project \dengo{}
-started by PI Turk; this is a solver construction kit based on a combination
-of SymPy and the templating library Jinja2.  
-
-
-\dengo{} includes full reaction networks for primordial gas, ionization of
+To address the limitations in \grackle{'s} flexibility, we will
+further develop the \dengo{} package, a solver construction kit based
+designed by PI Turk. \dengo{} is built on a combination of SymPy and
+the templating library Jinja2. \dengo{} includes full reaction
+networks for primordial gas, ionization of 
 interstellar, and formation of molecules using UMIST
 \citep{2013A&A...550A..36M}.  Constructing a solver using \dengo{} is done by
 choosing a collection of species to evolve, choosing the relevant chemical
 kinetic and radiative cooling equations that interlink them, and then
 identifying the solver that will update the coupled differential equations at
-each timestep.
-
-Utilizing the existing \grackle{}
-solver as a reference implementation, we will unify the two projects; \dengo{}
-accepts reaction networks, chemical species (and their metadata), reaction
-rates, and an API or implementation of an iterative solver, and generates
-templated output code.  At present, \dengo{} can generate C code with Python
+each timestep. At present, \dengo{} can generate C code with Python
 interfaces, utilizing either a backwards-Euler iterative solver or the SUNDIALS
 suite of tools; furthermore, it has been recently instrumented to generate
-OpenMP-aware code, although testing is still underway to ensure correctness and
-scalability.
+OpenMP-aware code.
+
+Figure \ref{fig:dengo} displays a sample application of \dengo{}, where
+collaborator Devin Silvia used \dengo{} to generate a network for solving
+the ionization states of atomic oxygen.  The network was coupled to
+the \enzo{} simulation code to run a cosmological simulation of a 25
+Mpc/h box with 256$^{3}$ grid cells and dark matter particles.  The
+simulation was designed to study the observable signatures of the gas
+between galaxies, known as the intergalactic medium (IGM).  These
+results show that the amount of observable oxygen in the IGM is
+significantly increased when NEQ effects are considered.
+While this is promising, the inclusion of the ionization network
+required roughly five times the computational resources, thus
+highlighting the need to further optimization with hardware
+accelerators as discussed below in the development plan.  It is worth
+noting that the sole other attempt at a simulation with NEQ
+O \citep{2016MNRAS.460.2157O} was done by running the
+simulation to more than 80\% of completion under equilibrium first,
+highlighting the genuine difficulty of this problem.
+
+\dengo{} development has, thus far, been targetted at uses within a
+single simulation code, \enzo{}, and so its API has not yet
+stabilized.  By modifying \dengo{} to conform to \grackle{'s} API, the
+\dengo{} project can take advantage of \grackle{'s} thriving user
+community. Utilizing the existing \grackle{}
+solver as a reference implementation, we will unify the two projects.
+\dengo{} accepts reaction networks, chemical species (and their
+metadata), reaction rates, and an API or implementation of an
+iterative solver, and generates templated output code.  \grackle{}
+hosts a curated set of \dengo{}-generated solvers, provides a pathway
+to 
+provides a pathway to \dengo{}-generated solver and continues to host
+the simplifying models (tabulated cooling, UV backgrounds, etc.) 
 
 \begin{itemize}
 \item Flexibility for code generation

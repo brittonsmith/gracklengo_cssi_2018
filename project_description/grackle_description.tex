@@ -90,7 +90,7 @@ frameworks.
 %% The Python interface includes additional features to aid
 %% in semi-analytical modeling and debugging.
 
-\grackle{} provides a non-equilibrium primordial chemistry solver for
+\grackle{} provides a non-equilibrium (NEQ) primordial chemistry solver for
 atomic and molecular species of H, D, and He, including H$_{2}$
 formation via three-body reactions \citep{2002Sci...295...93A,
 2011ApJ...726...55T} and on dust-grain surfaces
@@ -156,7 +156,7 @@ exposes the main functionality as well as helper functions useful in
 semi-analytic models, such as computing the
 thermal evolution of a parcel of gas at constant density or undergoing
 free-fall collapse.  Sample figure-producing scripts
-are included in the source (see Figure \ref{fig:evolve}).
+are included in the source (see Figure \ref{fig:freefall}).
 %\subsubsection{\texttt{pygrackle}: The Python Interface}
 
 %% The field arrays use an enhanced \texttt{NumPy} array,
@@ -185,19 +185,23 @@ are included in the source (see Figure \ref{fig:evolve}).
 \centering
 \begin{subfigure}{.48\textwidth}
   \centering
-  \includegraphics[width=0.98\textwidth]{figures/cooling_cell.pdf}
-  \caption{Constant density model (\texttt{cooling\_cell.py}).}
-  \label{fig:cooling-cell}
-\end{subfigure}%
-\begin{subfigure}{.48\textwidth}
-  \centering
   \includegraphics[width=0.98\textwidth]{figures/freefall.pdf}
-  \caption{Free-fall collapse model (\texttt{freefall.py}).}
+  \caption{Output from the free-fall collapse\\ model sample script
+    using the \texttt{pygrackle}\\Python wrapper.}
   \label{fig:freefall}
 \end{subfigure}%
+\begin{subfigure}{.42\textwidth}
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/unmatched_absorbers.png}
+  \caption{Number of absorption systems of five times
+    ionized O vs. column density for an \enzo{} simulation run
+    with equilibrium metal cooling (EQ, \grackle{}) and a NEQ O
+    ionization network made by \dengo{} (NEQ).}
+  \label{fig:dengo}
+\end{subfigure}%
 \vspace*{-0.5\baselineskip}
-\caption{Output from sample \texttt{pygrackle} scripts included in the \grackle{}
-  source.}
+%% \caption{Output from sample \texttt{pygrackle} scripts included in the \grackle{}
+%%   source.}
 \label{fig:evolve}
 \vspace*{-1\baselineskip}
 \end{figure}
