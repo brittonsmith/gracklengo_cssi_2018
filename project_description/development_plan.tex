@@ -58,50 +58,40 @@ The design and optimization of the core chemistry and cooling solver
 routines in \grackle{} are central factors in making the library fast
 enough to be used in extremely large simulations.  However, these
 factors also make this the most challenging area of \grackle{} to
-work with as a developer.  For example, because there is no simple way
-of sharing common/global data or variables between the C and Fortran
-routines, the Fortran routines must be handed all parameters, fields,
-and rate data as individual arguments.  This results in intimidating
-function signatures with dozens of arguments and is only made worse by
-the lack of consistency checking between the C and Fortran argument
-lists during compilation.  Inconsistencies will result in segmentation
-faults whose debugging requires comparison of long lists of function
-arguments.  Additional difficulties also include maintaining
-consistency in variable type across the C/Fortran interface and the
+work with as a developer.  For example, to share common data between C and
+Fortran, the
+Fortran routines must be provided all parameters, fields,
+and rate data as function arguments.  This results in intimidating
+function signatures with dozens of arguments;
+argument inconsistencies result in difficult-to-debug segmentation
+faults.
+Further complications include maintaining
+consistency in variable type across the C/Fortran interface (particularly 32-
+and 64-bit) and the
 general confusion that can arise from working in two different
-languages at once.  These factors increase the likelihood of bugs and
-make the source code significantly less inviting for new
-contributors.
-
-The primary advantage of using Fortran for \grackle{}'s most
-computationally expensive routines is the speed of array operations.
-This is extremely important for \grackle{}, as the code is designed to
-work on multiple, large arrays of fields.  This speed advantage was
-especially great when the core solvers were originally developed in
-the mid-1990s.  However, since that time, advances in the C
-programming language, such as the \texttt{restrict} keyword introduced
-in the C99 standard \citep{c99}, have made it possible for C code to
-be competitive with Fortran; this will help to make the code more attractive to
+languages at once.  
+Historically, \grackle{} was written in Fortran to optimize array operation
+performance; this speed advantage was especially great when the core solvers
+were originally developed in the mid-1990s.  Since that time, advances in the C
+programming language, such as the \texttt{restrict} keyword introduced in the
+C99 standard \citep{c99}, have made it easier for C code to be competitive
+with Fortran.  This transition will help to make the code more inviting to
 new developers who may be less familiar with Fortran.
 
-The source code refactor will begin with an expansion of the
-test suite to ensure that all functionality and parameter
-combinations are covered by answer and unit tests.  The current
-test suite adequately covers the most common running modes of the
-library, but is insufficient for a full overhaul such as what will
-follow.  With a more robust test suite in place, the Fortran code (roughly 7200
-lines) can be safely ported to C.  The resulting code will
-be vastly streamlined as it will no longer be necessary to pass all
-required data via function argument.  Instead, the central routines
-will be able to access the C \texttt{structs} containing the run-time
-parameters, rate data, and field arrays.  In addition, the ease of
-calling C routines from Python will allow for the addition of
-finer-grained unit tests operating within the existing test suite,
-which uses the \texttt{pytest} Python package.  This will also allow
-for more of the core functionality to be exposed directly to the user,
-as has often been requested.  The culmination of this phase of the
-work plan will be marked by a major public release, \grackle{} version
-4.0.
+Refactoring \grackle{} will begin by expanding the test suite to ensure that
+all functionality and parameter combinations are covered by answer and unit
+tests.  The current test suite adequately covers the most common running modes
+of the library, but is insufficient for this scale of refactor; this strong
+testing foundation will enable a safe transition of the Fortran code (roughly
+7200 lines) to C.  The resulting code will be vastly streamlined with greatly
+reduced function signatures; core routines will be able to access the C
+\texttt{structs} containing the run-time parameters, rate data, and field
+arrays.  In addition, the ease of calling C routines from Python will allow for
+the addition of finer-grained unit tests operating within the existing test
+suite, which uses the \texttt{pytest} Python package.  This will also allow for
+more of the core functionality to be exposed directly to the user, as has often
+been requested.  The culmination of this phase of the work plan will be marked
+by a major public release, \grackle{} version 4.0.
 
 %% At present, on startup \grackle{} computes lookup tables from the
 %% functional forms of the reaction rate coefficients.  To enable easier
