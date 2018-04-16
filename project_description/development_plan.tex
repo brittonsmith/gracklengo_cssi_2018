@@ -75,8 +75,8 @@ performance; this speed advantage was especially great when the core solvers
 were originally developed in the mid-1990s.  Since that time, advances in the C
 programming language, such as the \texttt{restrict} keyword introduced in the
 C99 standard \citep{c99}, have made it easier for C code to be competitive
-with Fortran.  This transition will help to make the code more inviting to
-new developers who may be less familiar with Fortran.
+with Fortran.  This will reduce complexity and make the code more inviting to
+new developers.
 
 Refactoring \grackle{} will begin by expanding the test suite to ensure that
 all functionality and parameter combinations are covered by answer and unit
@@ -90,8 +90,9 @@ arrays.  In addition, the ease of calling C routines from Python will allow for
 the addition of finer-grained unit tests operating within the existing test
 suite, which uses the \texttt{pytest} Python package.  This will also allow for
 more of the core functionality to be exposed directly to the user, as has often
-been requested.  The culmination of this phase of the work plan will be marked
-by a major public release, \grackle{} version 4.0.
+been requested.
+%% The culmination of this phase of the work plan will be marked
+%% by a major public release, \grackle{} version 4.0.
 
 %% At present, on startup \grackle{} computes lookup tables from the
 %% functional forms of the reaction rate coefficients.  To enable easier
@@ -159,9 +160,11 @@ make use of local computing resources at PI Smith's home institution
 SDSC's Comet supercomputer has 36 NVIDIA dual K80 nodes and 36 NVIDIA
 4-way P100 nodes. We will also work with system administrators at
 XSEDE facilities to provide modules of pre-built \grackle{}
-libraries. This phase of the project will be released as \grackle{}
-version 4.1. Included in this release will be documentation aimed at
-new developers with instructions for parallelizing new features.
+libraries.
+%%  This phase of the project will be released as \grackle{}
+%% version 4.1.
+Included in this release will be documentation with instructions for
+parallelizing new features.
 
 \noindent \textbf{Dengo Explicit Solver Generation and Hardware Acceleration}
 As a collaboration between the research groups of PI Turk and PI Smith, during
@@ -423,8 +426,8 @@ test suite runs automatically on the central repository and its
 forks using the Bitbucket Pipelines continuous integration service.
 The test suite includes a variety of ``unit tests`` to ensure against
 violation of fundamental contraints and ``answer tests`` to prevent
-results from drifting. The test suite will also attempt to compile and
-run all code examples.
+results from drifting. The test suite will also compile and
+run all code examples and sample scripts.
 
 %% The test suite
 %% includes a variety of different tests to guard against regression.
@@ -453,25 +456,26 @@ run all code examples.
 Reproducibility is integral to the scientific process, but can be
 difficult to achieve when a calculation relies on a complex software
 stack where dependency versions change frequently
-\citep{2014arXiv1412.5557J, 2016arXiv161009958L}.  Increased
-community involvement in a project, quickening the churn within the
-source code, only exacerbates the situation.  In \grackle{}, this
+\citep{2014arXiv1412.5557J, 2016arXiv161009958L}.
+%% Increased
+%% community involvement in a project, quickening the churn within the
+%% source code, only exacerbates the situation.
+In \grackle{}, this
 problem is solved by building unique version identifiers directly
 into the library.  When the library is compiled, the Mercurial
-changeset hash (an effectively unique series of alpha-numeric
-characters) is baked into a routine that outputs relevant information
-both to a file, called ``GRACKLE\_INFO'', and to the terminal (via
-STDOUT) whenever the library's initialize function is called.  In
-addition to the changeset hash, the following information is written:
-a ``diff'' of any uncommitted changes made to the source, the release
+changeset hash (which is effectively unique) is baked into a routine
+that outputs relevant information into a sidecar file created at run
+time. Included in this file are: a ``diff'' of any uncommitted
+changes made to the source, the release
 version, all compilation options, and all run-time parameters.
 Additionally, \grackle{} maintains a ``CITATION'' file within the
 source and in the documentation describing the proper citation
 language and BibTex entries to the citable entities.  We will also
 follow external examples, where appropriate, to produce machine
 readable provenance information \citep[e.g.,][]{force11,
-  Fenner097196}.  In these ways, \grackle{} serves as an example to
-the community of mechanisms for making reproducibility documents.
+  Fenner097196}.
+%% In these ways, \grackle{} serves as an example to
+%% the community of mechanisms for making reproducibility documents.
 
 \subsection{Alternative Software Packages}
 
