@@ -139,12 +139,12 @@ as those in the NSF-funded Extreme Science and Engineering Discovery
 Environment (XSEDE) and NCSA Blue Waters, employ a variety of
 architectures.  Implementing targeted parallelization strategies,
 while potentially resulting in faster code, will make the source code
-more complex. Instead, we will develop a new parallelism strategy
-using the OpenACC standard, which works with many different
-architectures.  OpenACC is supported 
+more complex. We will approach this by adopting the well-accepted
+OpenACC standard, which supports many different architectures.
+OpenACC is supported 
 by PGI, Cray, and GNU compilers.  Similar to OpenMP, OpenACC provides
 compiler directives, or pragmas, that allow the programmer to
-designate portions of code, particularly loops, to be run on the
+designate portions of code to be run on the
 accelerator.  Additional directives provide control of when data is
 copied to and from the accelerator and also to allow certain data to
 exist only in the accelerator's memory.  This strategy is well-suited
