@@ -505,10 +505,10 @@ the community of mechanisms for making reproducibility documents.
 
 While the astrophysical literature is replete with descriptions of chemical
 reaction networks, other than \grackle{}, there are essentially \textit{no}
-cross-platform explicitly-solved chemistry and cooling packages packages
-available to the astrophysical simulation community.  This fact was the primary
+cross-platform chemistry and cooling packages packages aimed at large
+simulations available to the astrophysical community.  This fact was the primary
 motivator for \grackle{}'s creation.  The main alternative to \grackle{} is the 
-\texttt{KROME}\footnote{\url{http://kromepackage.org/}} package
+\texttt{KROME} package
 \citep{2014MNRAS.439.2386G}.  \texttt{KROME} is functionally very
 similar to \dengo{} in that it can generate implicit solver code for a
 user-defined network.  \texttt{KROME} also exposes a number of
@@ -525,15 +525,15 @@ fluid element (impeding SIMD-related optimizations) and do not offer additional
 parallelization; \texttt{KROME} is not specifically targeted toward large
 simulations or advancements in hardware acceleration.
 
-Several other codes exist for solving specific chemistry
+Several codes exist for solving specific chemistry
 networks on single fluid elements, such as 
 \texttt{ALCHEMIC} \citep{2010A&A...522A..42S}; \texttt{ASTROCHEM}
 \citep{2013MNRAS.431..455K}; \texttt{ASTROCHEM} \citep[][unrelated to
 the first \texttt{ASTROCHEM}]{2013A&A...559A..53M}; \texttt{NAHOON}
 \citep{2012ApJS..199...21W}; \texttt{RATE13} \citep[associated with
   the UMIST database][]{2013A&A...550A..36M}; and \texttt{XDELOAD}
-\citep{2005Ap&SS.299....1N}.  The \texttt{ASTROCHEM} by
-\citet{2013A&A...559A..53M} is the only code hosted in a
+\citep{2005Ap&SS.299....1N}.  \texttt{ASTROCHEM}
+\citep{2013A&A...559A..53M} is the only code hosted in a
 publicly-viewable repository.  \texttt{NAHOON} and \texttt{RATE13} are
 downloadable as tatic tar files.  \texttt{ALCHEMIC} and
 \texttt{XDELOAD} are available upon request.  \texttt{ASTROCHEM} by
@@ -548,61 +548,65 @@ not their aim to provide a flexible API to large simulations, nor to
 act as a two-way resource that both serves and invites contribution
 from the larger community.
 
-The \grackle{} project has focused on providing optimized, easily
-adoptable functionality that is independent of simulation code
-design.  Through its interoperability with other cross-platform
-astrophysical tools like \yt{}, it seeks to exist within the
-ecosystem of scientific software rather than alongside it.  The
-\dengo{} code will adhere to this same philosophy.
-\grackle{'s} focus on usability, performance, and community
-involvement make it a vital software element to the field of
-computational astrophysics.  This focus is underscored by the goals
-of the work outlined in this proposal:
-to make the code inviting to new contribution; to enhance performance
-to scale with next-generation simulations; and to add features desired
-by its current users as well as to make it useful to new communities.
+%% The \grackle{} project has focused on providing optimized, easily
+%% adoptable functionality that is independent of simulation code
+%% design.  Through its interoperability with other cross-platform
+%% astrophysical tools like \yt{}, it seeks to exist within the
+%% ecosystem of scientific software rather than alongside it.  The
+%% \dengo{} code will adhere to this same philosophy.
+%% \grackle{'s} focus on usability, performance, and community
+%% involvement make it a vital software element to the field of
+%% computational astrophysics.  This focus is underscored by the goals
+%% of the work outlined in this proposal:
+%% to make the code inviting to new contribution; to enhance performance
+%% to scale with next-generation simulations; and to add features desired
+%% by its current users as well as to make it useful to new communities.
 
 \subsection{Advisory Board}
 
 We have formed an advisory board to ensure that the milestones
-outlined in this proposal are accomplished satisfactorily and in a timely
-fashion.  The PIs will meet regularly (between 1 and 3 times
-per year, via video-conference) with the full board to present updates
-on technical progress and progress in achieving the overall goals of
-the project in terms of growth in users and community involvement.  The
-advisory board members are experts in the fields of computational
-astrophysics and astrochemistry and have significant experience in the
-development (both technical and social) of community software projects
-and in parallelizing codes for GPUs.
+outlined in this proposal are accomplished on schedule. The PIs will
+meet regularly (via video-conference) with the full board to present
+updates on progress, both technical and toward the overall goals of
+the project in terms of growth in users and community involvement.
+The advisory board provides a range of scientific and technical
+expertise as well as experience with community software development.
+%%   The
+%% advisory board members are experts in the fields of computational
+%% astrophysics and astrochemistry and have significant experience in the
+%% development (both technical and social) of community software projects
+%% and in parallelizing codes for GPUs.
 {\bf Prof. Greg Bryan} is the original author of the \texttt{Enzo}
 simulation code and provides experience with chemistry solving methods
 and design of large software projects.
 {\bf Dr. Anshu Dubey} was an associate director of the Flash Center
 for computational science and one of the lead developers of the
 \texttt{FLASH} simulation code \citep{2000ApJS..131..273F,
-  2009arXiv0903.4875D}.  Dr. Dubey brings expertise in developing
-large adaptive mesh-refinement codes and can advise on adding
-\grackle{} support to \texttt{FLASH}.
+  2009arXiv0903.4875D}.%%   Dr. Dubey brings expertise in developing
+%% large adaptive mesh-refinement codes and can advise on adding
+%% \grackle{} support to \texttt{FLASH}.
 {\bf Dr. Simon Glover} is a foremost expert in astrochemistry and
 chemical networks and has contributed numerous updated chemical rates to
-\grackle{}.  Dr. Glover will provide expertise in creating chemical
-networks and evaluating their scientific applicability.
+\grackle{}.
+% %Dr. Glover will provide expertise in creating chemical
+%% networks and evaluating their scientific applicability.
 {\bf Prof. Michael Norman} is the head of the San Diego Supercomputer
 Center and has coordinated development of \texttt{Enzo} and
 \texttt{CELLO}/\texttt{Enzo-P}, a peta-scale AMR framework and
-simulation code.  Prof. Norman provides experience in software design for
-high performance computing and accelerating codes with GPUs and MIC
-systems.
+simulation code.
+%% Prof. Norman provides experience in software design for
+%% high performance computing and accelerating codes with GPUs and MIC
+%% systems.
 {\bf Prof. Stella Offner} is an expert in simulations of present-day
 star formation and provides insight into the needs of that community.
 Prof. Offner will also advise on adding support for \grackle{} to the
 \texttt{ORION} simulation code \citep{2012ApJ...745..139L}.
 {\bf Prof. Dan Reynolds} is an expert in developing highly scalable
 numerical solvers and an original contributor to \dengo{}.
-Prof. Reynolds will provide valuable insight into algorithm design and
-implementation.
+%% Prof. Reynolds will provide valuable insight into algorithm design and
+%% implementation.
 
-The advisory board provides a range of scientific and technical
-expertise as well as experience with community software development.
-Their input will help to see that milestones are met and that
-the project satisfies the needs of the communities it seeks to serve.
+%% The advisory board provides a range of scientific and technical
+%% expertise as well as experience with community software development.
+%% Their input will help to see that milestones are met and that
+%% the project satisfies the needs of the communities it seeks to serve.
