@@ -62,7 +62,7 @@ and open-source software best practices, the widely adopted API serves
 as a conduit for dissemination of new methods and research results to
 the community.
 \end{enumerate}
-However, for \grackle{} to continue to be a useful resource, we must
+For \grackle{} to continue to be a useful resource, we must
 ensure that the code is more inviting to new contributors, does not
 become a performance bottleneck on next-generation computing facilities, 
 and is flexible enough to be adapted to new areas of research.
@@ -111,9 +111,9 @@ increased speed at the expense of accuracy, the cooling from
 primordial elements can also be computed using these tables.  In
 addition to tables calculated assuming collisional ionization only
 (i.e., no incident radiation), cooling tables have been created for two
-different ultraviolet (UV) background models, those of \citet{2009ApJ...703.1416F}
-and \citet{2012ApJ...746..125H}, in order to mimic the effects of
-reionization.  For radiative transfer codes or simulation codes that
+different ultraviolet (UV) background models
+\citep{2009ApJ...703.1416F, 2012ApJ...746..125H} in order to mimic the effects of
+reionization.  For codes that
 support radiation hydrodynamics, \grackle{} also allows the user to supply
 photo-ionization and photo-heating rates for each computational
 element.  Arrays of arbitrary specific and volumetric heating
@@ -277,14 +277,13 @@ time-steps limited by heuristics such as cooling ($e/\dot{e}$) and chemical
 \begin{subfigure}{.54\textwidth}
   \centering
   \includegraphics[width=0.98\textwidth]{figures/performance.pdf}
-  \caption{Serial performance - Top: integration time for a 64$^{3}$
+  \caption{Top: integration time for a 64$^{3}$
     element fluid container, with tabulated cooling (``equilibrium'',
-    left), atomic chemistry (``6-species'', middle), and H$_{2}$ molecular chemistry
+    left), atomic chemistry (``6-species'', middle), and molecular chemistry
     (``9-species'', right).  Bottom: time normalized by the
     average subcycles per cell.  Colors denote the full solve
-    (blue), temperature calculation (red), primordial (black) and metal
-    (magenta) cooling calculation, and interpolation of rate
-    coefficients (cyan).}
+    (blue); temperature calculation (red); primordial (black) and metal
+    (magenta) cooling; rate coefficient interpolation (cyan).}
   \label{fig:single-proc}
 \end{subfigure}%
 \hspace{0.02\textwidth}
@@ -354,7 +353,7 @@ machine, \grackle{} performs
 roughly 0.5-1$\times10^{6}$ full solves per second and at least
 10$^{6}$ subcycles per second, depending only slightly on the choice
 of solver.  Due to a lack of similar packages, an absolute evaluation
-of this performance is difficult.  However, a comparison can be made
+of this performance is difficult.  A comparison can be made
 to the \texttt{Enzo} simulation code as a whole.
 \citet{2014ApJS..211...19B} perform a weak scaling test of
 \texttt{Enzo} with a simulation including gravity,
@@ -427,15 +426,15 @@ received commits from 16 different contributors and has had several different
 \subsection{Future Challenges}
 
 The strength of the \grackle{} community is a testament to the
-project's ability to meet the \textit{current} needs of its users.  However,
-those needs will continue to evolve as the scientific frontier
+project's ability to meet the \textit{current} needs of its
+users. Those needs will continue to evolve as the scientific frontier
 advances and simulations increase in sophistication.  In order to
 prioritize future development, a survey of \grackle{} users was
 conducted in Spring 2017, allowing respondents to submit feature
 requests.  Many of the highly desired features were newly published
 models and minor enhancements, their implementation constituting
 well-define development projects suitable for students.  Two of these
-are included in the proposed work.  However, the most desired
+are included in the proposed work.  The most desired
 capability (over 75\% of respondents) was the inclusion of additional
 elements in the chemistry solver.  In addition to aiding current
 users, this functionality would also open \grackle{} up to simulators

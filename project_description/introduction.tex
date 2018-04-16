@@ -24,37 +24,36 @@ from theoretical calculations \citep[e.g.,][]{2007MNRAS.377..705F,
 methods \citep[e.g.,][]{CURTIS2017312, 2014JCoPh.256..854N}.  As a result, there
 has been considerable divergence in the methods employed for solving chemistry
 and cooling within the astronomical community.  This hinders scientific
-progress by making it difficult to directly compare results from
-different simulations and by duplicating the tedious effort
+progress by making it difficult to directly compare results and by
+duplicating the effort
 within each research group to keep reaction rates up to date. The
-\grackle{} chemistry and cooling library was developed with the
-explicit purpose of addressing these problems, and its growing popularity
+\grackle{} chemistry and cooling library was developed to address
+these problems, and its growing popularity
 demonstrates its clear value to the community.
 
 Gas chemistry presents a unique set of challenges in terms of
 both computation and software development.  First, the network of
 reactions rapidly grows in complexity with the number of elements and
-species of those elements (i.e., the various ionization states and
+associated species (i.e., the various ionization states and
 molecular forms) considered.  For example, the simplest case of a
 primordial gas consisting of hydrogen, deuterium, and helium minimally
 requires between 11 and 15 species and roughly 20 to 30 reactions
 \citep{1997NewA....2..181A, 1998A&A...335..403G}.
 Adding just carbon and oxygen increases the minimal network to 
 roughly 15-30 species and more than 50 reactions
-and potentially up to almost 500, depending on the level of
+and potentially up to 500, depending on the level of
 accuracy \citep{2005ApJ...626..627O, 2012MNRAS.421..116G}.  Increases in
 computational power will continue to be easily consumed by adopting
-even gradually more sophisticated chemical networks and optimization
-will remain critical.  Additionally, the likelihood of implementation
-errors will only increase with the complexity of the network
-\citep{taschuk2017ten}. An even greater challenge is that the
-knowledge base
-informing these solvers is continually evolving: the rate
+even gradually more sophisticated chemical networks.  As well,
+the likelihood of implementation
+errors increases with the network complexity
+\citep{taschuk2017ten}. Another challenge is keeping up with
+the ever-evolving knowledge base informing the solvers: rate
 coefficients for many important reactions are still highly uncertain
 \citep{2008MNRAS.388.1627G, 2011ApJ...726...55T} with accepted values
 changing with new results from experimentation
 \citep{2010Sci...329...69K, 2015ApJS..219....6O, 2016ApJ...816...31D}.
-Additionally, new models are frequently created to account for
+New models are frequently created to account for
 phenomena that are difficult to resolve or simulate directly, such as
 UV background models that mimic reionization
 \citep[e.g.,][]{1996ApJ...461...20H, 2001cghr.confE..64H,

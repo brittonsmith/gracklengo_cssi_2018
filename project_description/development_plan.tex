@@ -78,10 +78,9 @@ C99 standard \citep{c99}, have made it easier for C code to be competitive
 with Fortran.  This will reduce complexity and make the code more inviting to
 new developers.
 
-Refactoring \grackle{} will begin by expanding the test suite to ensure that
-all functionality and parameter combinations are covered by answer and unit
-tests.  The current test suite adequately covers the most common running modes
-of the library, but is insufficient for this scale of refactor; this strong
+Refactoring \grackle{} will begin by expanding the test suite beyond
+the most common running modes and with more fine-grained unit testing.
+This strong
 testing foundation will enable a safe transition of the Fortran code (roughly
 7200 lines) to C.  The resulting code will be vastly streamlined with greatly
 reduced function signatures; core routines will be able to access the C
