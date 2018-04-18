@@ -2,7 +2,7 @@
   Chemistry Library}
 
 The \grackle{} project
-\citep[][\url{https://grackle.readthedocs.io}]{2017MNRAS.466.2217S} is
+\citep{2017MNRAS.466.2217S, grackle_docs} is
 an open-source library for computing the chemistry and radiative
 cooling in astrophysical simulations and models.  The
 \grackle{} library exposes functions necessary for computing the
@@ -228,17 +228,16 @@ library is written in a combination of C and Fortran with the strategy
 of using Fortran for the computationally expensive internal machinery
 and C for user-facing functions and data storage.  The single
 additional dependency is
-HDF5\footnote{\url{https://www.hdfgroup.org/HDF5/}}, used for reading
+HDF5\citep{hdf5_site}, used for reading
 cooling, heating,
 and UV background rate data from input files.  HDF5 was chosen because
 \grackle{}'s input files contain many data tables and the hierarchical
 format makes them easily discoverable without prior knowledge of the
 layout, allowing them to be reused for other purposes.  The Python
 interface is built upon a number of widely used Python packages, including
-\texttt{NumPy}, \texttt{Cython}, and
-\yt{}\footnote{\url{http://www.numpy.org/}, \url{http://cython.org/},
-  and \url{http://yt-project.org/}, respectively} \citep[][an SI2-funded
-project]{2011ApJS..192....9T}.  The project also utilizes the following:
+\texttt{NumPy}\citep{numpy}, \texttt{Cython}\citep{cython}, and
+\yt{}\citep[][an SI2-funded
+project]{2011ApJS..192....9T, ytproj}.  The project also utilizes the following:
 Mercurial for version control; BitBucket.org for repository hosting;
 Sphinx for documentation; readthedocs.org for documentation
 hosting; pytest for testing; and BitBucket Pipelines for automated testing.
