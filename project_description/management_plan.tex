@@ -1,0 +1,223 @@
+\documentclass[11pt]{article}
+\usepackage[table]{xcolor}
+\definecolor{gray-empty}{gray}{1.0}
+\definecolor{gray-conceptualize}{gray}{0.75}
+\definecolor{gray-design}{gray}{0.5}
+\definecolor{gray-implement}{gray}{0.25}
+\definecolor{gray-support}{gray}{0}
+\usepackage{tcolorbox}
+\newcommand\timelinebox[1]{%
+  \tcbox[size=tight,on line,colframe=gray-#1,colback=gray-#1]{\textcolor{gray-#1}{XXX}}
+}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyvrb}
+\usepackage{epsfig}
+\usepackage{fullpage}
+\usepackage[small,compact]{titlesec}
+\usepackage{tcolorbox}
+\usepackage{upquote}
+\usepackage{xcolor}
+\usepackage{soul}
+\tcbuselibrary{minted, skins, listings}
+\tcbset{listing engine=minted}
+
+\newtcbinputlisting{pyoutput}[2]{
+  listing file=sections/examples/#2,
+  listing and comment,
+  minted style = emacs,
+  minted language = python,
+  left=0cm,
+  right=0cm,
+  top=0cm,
+  bottom=0cm,
+  comment={#1}}
+
+\newtcbinputlisting{pyimage}[2]{
+  listing file=sections/examples/#2,
+  listing side comment,
+  minted style = emacs,
+  minted language = python,
+  righthand width=5.5cm,
+  left=0cm,
+  right=0cm,
+  top=0cm,
+  bottom=0cm,
+  lower separated=false,
+  tcbimage comment={sections/examples/#1},
+  comment style={size=fbox}}
+
+% This may not always be necessary:
+% http://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+% End
+
+\usepackage{hyperref}
+%\usepackage{times}
+
+\renewcommand*{\sectionautorefname}{\S}
+\renewcommand*{\subsectionautorefname}{\S}
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\setlength{\topmargin}{+0.0in}   %%%%%%%%% this is hacked (from +.0.1in) so that it looks right when converted.
+\setlength{\oddsidemargin}{-0.0in}
+\setlength{\evensidemargin}{-0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\bibliographystyle{plain}
+\newcommand{\apj}{ApJ}
+\newcommand{\apss}{Astrophysics and Space Science}
+\newcommand{\aj}{AJ}
+\newcommand{\apjl}{ApJL}
+\newcommand{\mnras}{MNRAS}
+\newcommand{\apjs}{ApJS}
+\newcommand{\pasp}{PASP}
+\newcommand{\pasa}{PASA}
+\newcommand{\araa}{ARA\&A}
+\newcommand{\aap}{A\&A}
+\newcommand{\aaps}{A\&AS}
+\newcommand{\pasj}{PASJ}
+\newcommand{\prd}{Phys. Rev. D}
+\newcommand{\nat}{Nature}
+\newcommand{\physrep}{Physics Reports}
+\newcommand{\etal}{et al}
+\newcommand{\yt}{\texttt{yt}}
+\newcommand{\libyt}{\texttt{libyt}}
+\newcommand{\visit}{\texttt{VisIt}}
+\newcommand{\paraview}{\texttt{ParaView}}
+\newcommand{\mayavi}{\texttt{Mayavi}}
+\newcommand{\grackle}{\texttt{Grackle}}
+\newcommand{\enzo}{\texttt{Enzo}}
+\newcommand{\dengo}{\texttt{Dengo}}
+\newcommand{\vtk}{\texttt{VTK}}
+\newcommand{\sympy}{\texttt{SymPy}}
+\def\subsun{\mbox{$_{\odot}$}}
+\def\lesssim{\mathrel{\hbox{\rlap{\hbox{%
+ \lower4pt\hbox{$\sim$}}}\hbox{$<$}}}}
+\def\gtrsim{\mathrel{\hbox{\rlap{\hbox{%
+ \lower4pt\hbox{$\sim$}}}\hbox{$>$}}}}
+\newcommand\YTEP[1]{%
+  YTEP-#1}
+\renewcommand\YTEP[1]{YTEP-#1}
+
+\usepackage{natbib}
+\setlength{\bibsep}{0.0pt}
+
+\newenvironment{itemize*}%
+{\begin{itemize}%
+  \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+{\end{itemize}}
+
+\newenvironment{enumerate*}%
+{\begin{enumerate}%
+  \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+{\end{enumerate}}
+
+\newenvironment{description*}%
+{\begin{description}%
+  \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+{\end{description}}
+
+\begin{document}
+
+\clearpage
+
+% http://www.nsf.gov/pubs/2016/nsf16532/nsf16532.htm
+%
+% Management and Coordination Plan (SSI proposals only, 3-page limit, to be
+% submitted as a Supplementary Document): Each SSI proposal must contain a
+% clearly labeled Management and Coordination Plan that includes: 1) the
+% specific roles of the PI, co-PIs, other Senior Personnel and paid consultants
+% at all institutions involved; 2) how the project will be managed across
+% institutions and disciplines; 3) identification of the specific coordination
+% mechanisms that will enable cross-institution and/or cross-discipline
+% scientific integration (e.g., yearly workshops; graduate student exchanges;
+% project meetings at conferences; use of video conferences; use of common
+% software repositories, build processes and/or test suites; etc.); and 4)
+% pointers to the budget line items that support these management and
+% coordination mechanisms.
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\begin{center}
+%\bfseries{%
+%%
+%% ENTER TITLE OF PROPOSAL BELOW THIS LINE
+%{\large Inquiry-Focused Volumetric Data Analysis Across Scientific
+%  Domains:\\Sustaining and Expanding the \yt{} Community}\\
+  {\large \textbf{MANAGEMENT AND COORDINATION PLAN}}
+%%
+%%
+%}
+\end{center}
+
+\section{Roles of Individuals Involved}
+
+Below, we identify the specific roles that each Investigator and Senior
+Personnel member will occupy.
+
+\subsection{University of California - San Diego}
+
+The University of Illinois will be the primary coordinating institution, and
+will function as the primary developers of the \grackle{} interface and its
+community support.
+
+\noindent \textbf{Britton Smith} (PI): Smith will coordinate broad goals
+and conduct development, as well as act as a liaison and advisor for liaising
+between communities of researchers.  He will also participate in development of
+the \grackle{} code, interfacing that with generated code from \dengo{}, and
+work to unify the disparate code bases.  Development of accelerator code for
+\grackle{} will proceed under his guidance, and the students at UCSD will be
+working with Smith.  Smith will also organize the advisory board meetings.
+
+\subsection{University of Illinois}
+
+Primary development of the \dengo{} infrastructure will be conducted at UIUC.
+
+\noindent \textbf{Matthew Turk} (PI):  Turk will coordinate with Smith and
+other community members to ensure functionality in \grackle{} can be
+sufficiently replicated in \dengo{}-generated code.  Additionally, he will
+supervise students working on symbolic reaction rate generation and integration
+into simulation codes.
+
+\section{Project Management and Coordination Mechanisms}
+
+UCSD will serve as the coordinating institution.
+The advisory board will conduct
+virtual meetings no less than once a year, with much more frequent (monthly or
+more) progress reports and discussions occuring over asynchronous methods of
+communication such as email.
+
+\grackle{} itself has a number of existing project mechanisms which will
+be augmented as part of this proposal.  This includes issue management, mailing
+lists and discussions.
+
+We note here that by default, \textit{all} communication regarding this project
+will be public.  This includes goal-setting, milestone evaluation, and
+evaluation of components.
+
+\section{Budget Support}
+
+We identify the travel section, which will fund annual visits between research
+groups, as budget items in support of this management plan.  We will be
+utilizing cloud-hosted open source solutions, most of which are well within the
+``free" tier, for communication.
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
