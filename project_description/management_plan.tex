@@ -20,34 +20,6 @@
 \usepackage{upquote}
 \usepackage{xcolor}
 \usepackage{soul}
-\tcbuselibrary{minted, skins, listings}
-\tcbset{listing engine=minted}
-
-\newtcbinputlisting{pyoutput}[2]{
-  listing file=sections/examples/#2,
-  listing and comment,
-  minted style = emacs,
-  minted language = python,
-  left=0cm,
-  right=0cm,
-  top=0cm,
-  bottom=0cm,
-  comment={#1}}
-
-\newtcbinputlisting{pyimage}[2]{
-  listing file=sections/examples/#2,
-  listing side comment,
-  minted style = emacs,
-  minted language = python,
-  righthand width=5.5cm,
-  left=0cm,
-  right=0cm,
-  top=0cm,
-  bottom=0cm,
-  lower separated=false,
-  tcbimage comment={sections/examples/#1},
-  comment style={size=fbox}}
-
 % This may not always be necessary:
 % http://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
 \usepackage{etoolbox}
